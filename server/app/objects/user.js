@@ -6,14 +6,29 @@ exports.User = class {
     }
 
     getUserName() {
-        return this.json.userName;
+        return this.user.userName;
+    }
+
+    getGuid() {
+        return this.user.guid;
     }
 
     setJson(json) {
-        this.json = json;
+        this.user = json;
+    }
+
+    getJson() {
+        return this.user;
     }
 
     setId(id) {
-        this.json.id = id;
+        this.user.id = id;
+    }
+
+    getJsonForCreatingNewUser() {
+        return {
+            guid: this.getGuid(),
+            userName: this.getUserName()
+        }
     }
 }

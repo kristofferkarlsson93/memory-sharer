@@ -1,8 +1,5 @@
 'use strict';
 
-const allParametersExists = (data, requiredParameters) => {
-   
-}
 
 const errorResponse = (status, code) => {
 	return {
@@ -27,7 +24,6 @@ const keyExists = (data, key) => {
 }
 
 module.exports = {
-	allParametersExists,
 	errorResponse,
 	successResponse,
 };
