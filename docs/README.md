@@ -25,25 +25,32 @@ GET: `baseURL/user/{id}`
             id: 'dfhdfd458'
         }, 
         ...,
-        memories: {
-            id: 'sdfdfh44',
-            image: base64-encoded string,
-            greeting: 'Here we are at the beach eating sand',
-            toId: [{
-                {
-                    name: 'Anka'
-                    id: dfjkhdshj55
-                },
-                ...
-            }],
-        }
+        memories: [
+            {
+                id: 'sdfdfh44',
+                image: base64-encoded string,
+                greeting: 'Here we are at the beach eating sand',
+                toId: [{
+                    {
+                        name: 'Anka'
+                        id: dfjkhdshj55
+                    },
+                    ...
+                }],
+            }
+            ...
+        ]
     ]
 }
 ```
 #### 400
+```
 {
-    code: 'INVALID_ID'
+    error: {
+        code: 'INVALID_ID'   
+    }
 }
+```
 
 ### Get memories
 
