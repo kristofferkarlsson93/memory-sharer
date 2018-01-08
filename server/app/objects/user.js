@@ -1,34 +1,34 @@
 'use strict';
 
 exports.User = class {
-    constructor(json) {
-        this.setJson(json);
-    }
+	constructor(json) {
+		this.setJson(json);
+	}
 
-    getUserName() {
-        return this.user.userName;
-    }
+	getUserName() {
+		return this.user.userName;
+	}
 
-    getGuid() {
-        return this.user.guid;
-    }
+	getGuid() {
+		return this.user.guid;
+	}
 
-    setJson(json) {
-        this.user = json;
-    }
+	setJson(json) {
+		this.user = json;
+	}
 
-    getJson() {
-        return this.user;
-    }
+	getJson() {
+		return this.user;
+	}
 
-    setId(id) {
-        this.user.id = id;
-    }
+	setId(id) {
+		this.user.id = id;
+	}
 
-    getJsonForCreatingNewUser() {
-        return {
-            guid: this.getGuid(),
-            userName: this.getUserName()
-        }
-    }
+	getJsonForCreatingNewUser() {
+		return {
+			guid: this.getGuid(),
+			userName: this.getUserName()
+		}
+	}
 }
