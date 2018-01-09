@@ -2,7 +2,7 @@ const controllerHelper = require('../../helpers/controllerHelper');
 const userGetter = require('../../model/userGetter');
 const userPersister = require('../../model/userPersister');
 const errors = require('../../constants/errorCodes');
-const rule = require('../../model/rules/userRules');
+//const rule = require('../../model/rules/userRules');
 
 const invoke = async(data) => {
 
@@ -10,8 +10,15 @@ const invoke = async(data) => {
 	if (dataMissingParameter(data)) {
 		return controllerHelper.errorResponse(400, errors.MISSING_PARAMETER);
 	}
+	const activeUsersGuid = data.userGuid;
+	const contactToAddsGuid = data.contactGuid;
+	const users = await getWantedUsers(activeUsersGuid, contactToAddsGuid);
+	console.log('USERS', users);
+	const user = users[0];
+	const contact = user[1];
 
-	const evaluation = await evaluateThatUserAndContactExists(data);
+
+	/*const evaluation = await evaluateThatUserAndContactExists(data);
 	console.log('eval', evaluation);
 	const userExist = evaluation[0];
 	const contactExists = evaluation[1];
@@ -27,11 +34,16 @@ const invoke = async(data) => {
 		return controllerHelper.errorResponse(400, exception);
 	}
 	console.log('everythingOk');
-
-
 	return 'temp';
 
+*/
+}
 
+const getWantedUsers = (activeUsersGuid, contactToAddsGuid) => {
+	return Promise.all([
+		userGetter.getUserByGuid(activeUsersGuid),
+		userGetter.getUserByGuid(contactToAddsGuid)
+	])
 }
 
 const evaluateThatUserAndContactExists = (data) => {
