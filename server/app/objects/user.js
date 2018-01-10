@@ -25,6 +25,10 @@ exports.User = class {
 		this.user.id = id;
 	}
 
+	getFirebaseId() {
+		return this.user.id;
+	}
+
 	getJsonForCreatingNewUser() {
 		return {
 			guid: this.getGuid(),

@@ -1,5 +1,6 @@
 'use strict';
 const usersRef = require('../configs/dbConfig').usersRef;
+const contactsRef = require('../configs/dbConfig').contactsRef;
 
 const addNewUser = async(data) => {
 	const returnedData = await usersRef.push(data);
@@ -29,7 +30,7 @@ const userIdExists = async(userId) => {
 }
 
 const userGuidExistsAsync = (userGuid) => {
-	return new Promise((resolve, reject) => {
+	return new Promise( (resolve, reject) => {
 		usersRef.orderByChild('guid').equalTo(userGuid).once("value", snapshot => {
 			const userData = snapshot.val();
 			if (userData) {
@@ -42,14 +43,17 @@ const userGuidExistsAsync = (userGuid) => {
 }
 
 const getUserByGuid = (userGuid) => {
-	return new Promise((resolve, reject) => {
+	return new Promise( (resolve, reject) => {
 		usersRef.orderByChild('guid').equalTo(userGuid).once('value', snapshot => {
 			resolve(snapshot.val());
 		});
 	});
 }
 
-const addContactToUser = (userGuid, contactGuid) => {
+const addContactToUser = (data) => {
+	console.log(data);
+	const userInContacts = contactsRef.child(data.userInfo.userGuid);
+	userInContacts.set(data.contactInfo);
 
 }
 
@@ -58,5 +62,6 @@ module.exports = {
 	userNameExists,
 	userIdExists,
 	userGuidExistsAsync,
-	getUserByGuid
+	getUserByGuid,
+	addContactToUser
 }

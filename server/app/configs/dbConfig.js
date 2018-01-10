@@ -11,8 +11,10 @@ const firebase = admin.initializeApp({
 const db = admin.database();
 const ref = db.ref("server");
 const usersRef = ref.child('users');
+const contactsRef = ref.child('contacts');
 
 module.exports = {
     ref,
-    usersRef
+    usersRef,
+    contactsRef
 };

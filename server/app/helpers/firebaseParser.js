@@ -5,10 +5,25 @@ const parseDataToUser = (data) => {
   const parsedData = {
     userName: root.userName,
     guid: root.guid,
-    contacts: root.contacts,
-    id: getFireBaseIdFromData(data)
+    id: getFireBaseIdFromData(data),
+    contacts: root.contacts
   };
   return new User(parsedData);
+} 
+
+const parseForAddingContactToUser = (user, contact) => {
+  const contactFirebaseId = contact.getFirebaseId();
+  const contactGuid = contact.getGuid();
+  const object = {
+    userInfo: {
+      userGuid: user.getGuid(),
+    }, contactInfo: {
+
+    }
+  }
+    object['contactInfo'][contact.getGuid()] = true;
+    object['contactInfo'][contact.getFirebaseId()] = true;
+    return object;
 } 
 
 const getFireBaseIdFromData = (data) => {
@@ -20,5 +35,6 @@ const extractUserData = (data) => {
 }
 
 module.exports = {
-  parseDataToUser
+  parseDataToUser,
+  parseForAddingContactToUser
 }

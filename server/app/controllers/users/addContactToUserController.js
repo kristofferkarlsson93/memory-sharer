@@ -10,20 +10,18 @@ const isKnownError = require('../../helpers/errorHandlingHelper').isKnownError;
 
 const invoke = async(data) => {
 
-	console.log('missing parameter', dataMissingParameter(data));
 	if (dataMissingParameter(data)) {
 		return controllerHelper.errorResponse(400, errors.MISSING_PARAMETER);
 	}
 
 	const users = await getWantedUsers(data.userGuid, data.contactGuid);
 	const user = users[0];
-	const contact = user[1];
+	const contact = users[1];
 
 	try {
 		ruleAssembler.userAndContactShouldExist(user, contact);
 		ruleAssembler.usersShouldNotBeConnectedWhenAddingContact(user, contact);
 	} catch (error) {
-		console.log('error', error)
 		if (isKnownError(error)) {
 			return controllerHelper.errorResponse(errors.errorStatuses.error, errors.errorCodes.error);
 		} else throw new Error(error);
