@@ -1,6 +1,16 @@
-module.exports = {
+const errorCodes = {
 	MISSING_PARAMETER: 'MISSING_PARAMETER',
 	USER_DOES_NOT_EXISTS: 'USER_DOES_NOT_EXISTS',
 	CONTACT_DOES_NOT_EXISTS: 'USER_DOES_NOT_EXISTS'
+}
+
+const errorStatuses = {
+	USER_DOES_NOT_EXISTS: 400,
+	CONTACT_DOES_NOT_EXISTS: 400
+}
+
+module.exports = {
+	errorCodes,
+	errorStatuses
 }
 

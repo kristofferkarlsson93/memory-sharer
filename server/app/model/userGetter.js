@@ -1,5 +1,5 @@
 const db = require('../model/userDb');
-const {	User } = require('../objects/user')
+const fireBaseParser = require('../helpers/firebaseParser');
 
 const userIdExistsInDb = async(id) => {
 	const guidExist = await db.userIdExists(id);
@@ -22,8 +22,8 @@ const userGuidExists = (userGuid) => {
 }
 
 const getUserByGuid = (userGuid) => {
-	return db.getUserByGuid(userGuid).then((userData) => {
-		return userData ? new User(userData) : "";
+	return db.getUserByGuid(userGuid).then( (userData) => {
+		return userData ? fireBaseParser.parseDataToUser(userData) : "";
 	});
 }
 

@@ -44,7 +44,6 @@ const userGuidExistsAsync = (userGuid) => {
 const getUserByGuid = (userGuid) => {
 	return new Promise((resolve, reject) => {
 		usersRef.orderByChild('guid').equalTo(userGuid).once('value', snapshot => {
-			console.log('val', snapshot.val());
 			resolve(snapshot.val());
 		});
 	});

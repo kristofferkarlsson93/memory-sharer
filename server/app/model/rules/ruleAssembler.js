@@ -1,4 +1,4 @@
-const errorCodes = require('../../constants/errorCodes')
+const errorCodes = require('../../constants/errorCodes').errorCodes;
 const userExists = require('./simpleRules/userShouldExist');
 
 const userAndContactShouldExist = (user, contact) => {
@@ -9,7 +9,12 @@ const userAndContactShouldExist = (user, contact) => {
     }
 } 
 
+const usersShouldNotBeConnectedWhenAddingContact = (user, contact) => {
+    
+}
+
 
 module.exports = {
-    userAndContactShouldExist
+    userAndContactShouldExist,
+    usersShouldNotBeConnectedWhenAddingContact
 }
