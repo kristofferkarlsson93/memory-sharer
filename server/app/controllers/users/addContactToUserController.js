@@ -1,8 +1,12 @@
+import { error } from 'util';
+
 const controllerHelper = require('../../helpers/controllerHelper');
 const userGetter = require('../../model/userGetter');
 const userPersister = require('../../model/userPersister');
 const errors = require('../../constants/errorCodes');
-//const rule = require('../../model/rules/userRules');
+const ruleAssembler = require('../../model/rules/ruleAssembler.js');
+const isKnownError = require('../../helpers/errorHandlingHelper').isKnownError;
+
 
 const invoke = async(data) => {
 
@@ -16,6 +20,11 @@ const invoke = async(data) => {
 	console.log('USERS', users);
 	const user = users[0];
 	const contact = user[1];
+	try {
+
+		ruleAssembler.userAndContactShouldExist(user, contact)
+	} catch (error ) //add if knownError-...
+
 
 
 	/*const evaluation = await evaluateThatUserAndContactExists(data);
