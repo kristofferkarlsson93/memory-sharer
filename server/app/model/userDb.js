@@ -51,10 +51,17 @@ const getUserByGuid = (userGuid) => {
 }
 
 const addContactToUser = (data) => {
-	console.log(data);
-	const userInContacts = contactsRef.child(data.userInfo.userGuid);
-	userInContacts.set(data.contactInfo);
+	console.log('about to add this', data);
+	const userInContacts = contactsRef.child(data.userInfo.userGuid + '/');
+	userInContacts.update(data.contactInfo);
+}
 
+const getContactsForUser = (user) => {
+	return new Promise( (resolve, reject) => {
+		contactsRef.orderByChild('guid').equalTo(user.getGuid()).once('value', snapshot => {
+			resolve(snapshot.val());
+		});
+	})
 }
 
 module.exports = {

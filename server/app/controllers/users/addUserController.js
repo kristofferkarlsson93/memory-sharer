@@ -1,8 +1,8 @@
 'use strict';
 const controllerHelper = require('../../helpers/controllerHelper');
 const {User} = require('../../objects/user');
-const userPersister = require('../../model/userPersister');
-const userGetter = require('../../model/userGetter');
+const userPersister = require('../../model/persisters/userPersister');
+const userGetter = require('../../model/getters/userGetter');
 
 
 const invoke = async (data) => {

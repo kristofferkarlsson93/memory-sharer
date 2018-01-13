@@ -1,8 +1,9 @@
 "use strict";
 
 const controllerHelper = require('../../helpers/controllerHelper');
-const userGetter = require('../../model/userGetter');
-const userPersister = require('../../model/userPersister');
+const userGetter = require('../../model/getters/userGetter');
+const contactGetter = require('../../model/getters/contactsGetter')
+const userPersister = require('../../model/persisters/userPersister');
 const errors = require('../../constants/errorCodes');
 const ruleAssembler = require('../../model/rules/ruleAssembler.js');
 const isKnownError = require('../../helpers/errorHandlingHelper').isKnownError;
@@ -14,9 +15,10 @@ const invoke = async(data) => {
 		return controllerHelper.errorResponse(400, errors.MISSING_PARAMETER);
 	}
 
-	const users = await getWantedUsers(data.userGuid, data.contactGuid);
-	const user = users[0];
-	const contact = users[1];
+	const [user, contact] = await getWantedUsers(data.userGuid, data.contactGuid);
+	const usersContacts = await contactGetter.getContactsForUser(user);
+	console.log('contacts', usersContacts);
+
 
 	try {
 		ruleAssembler.userAndContactShouldExist(user, contact);
@@ -27,7 +29,7 @@ const invoke = async(data) => {
 		} else throw new Error(error);
 	}
 	userPersister.addContactToUser(user, contact)
-
+	return 'gurka';
 
 }
 
