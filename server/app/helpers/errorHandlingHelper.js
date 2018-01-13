@@ -1,7 +1,7 @@
-const knownErrors = require('../constants/errorCodes');
+const knownErrors = require('../constants/errorCodes').errorCodes;
 
 const isKnownError = (error) => {
-	Object.prototype.hasOwnProperty.call(knownErrors, error)
+	return Object.prototype.hasOwnProperty.call(knownErrors, error)
 }
 
 module.exports = {

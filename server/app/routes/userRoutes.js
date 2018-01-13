@@ -10,10 +10,8 @@ module.exports = (app, db) => {
 
 	app.post('/user/:userGuid/contacts/:contactGuid', async(request, response) => {
 		const addContactToUserController = require('../controllers/users/addContactToUserController')
-		console.log('params', request.params);
 		const result = await addContactToUserController.invoke(request.params);
-		console.log('RESULT: ', result);
-		response.send('test');
+		response.status(result.status).send(result.body);
 	});
 
 }

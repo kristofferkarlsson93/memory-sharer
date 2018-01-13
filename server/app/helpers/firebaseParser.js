@@ -12,7 +12,6 @@ const parseDataToUser = (data) => {
 } 
 
 const parseForAddingContactToUser = (user, contact) => {
-  const contactFirebaseId = contact.getFirebaseId();
   const contactGuid = contact.getGuid();
   const object = {
     userInfo: {
@@ -22,17 +21,17 @@ const parseForAddingContactToUser = (user, contact) => {
     }
   }
     object['contactInfo'][contact.getGuid()] = true;
-    object['contactInfo'][contact.getFirebaseId()] = true;
     return object;
 } 
 
 const parseListOfContactGuids = (data) => {
-  const relevantData = _extractRelevantData(data);
-  //arrayfilter out all guids and add to array
+  const guids = _extractRelevantData(data);
+  const contactGuidList = Object.keys(guids).filter(guid =>  guids[guid] === true);
+  return contactGuidList;
 }
 
 const _getFireBaseIdFromData = (data) => {
-  return Object.keys(data)[0];
+  return Object.keys(data)[0].filter;
 }
 
 const _extractRelevantData = (data) => {

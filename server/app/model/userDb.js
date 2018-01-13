@@ -50,11 +50,6 @@ const getUserByGuid = (userGuid) => {
 	});
 }
 
-const addContactToUser = (data) => {
-	console.log('about to add this', data);
-	const userInContacts = contactsRef.child(data.userInfo.userGuid + '/');
-	userInContacts.update(data.contactInfo);
-}
 
 const getContactsForUser = (user) => {
 	return new Promise( (resolve, reject) => {
@@ -70,5 +65,4 @@ module.exports = {
 	userIdExists,
 	userGuidExistsAsync,
 	getUserByGuid,
-	addContactToUser
 }

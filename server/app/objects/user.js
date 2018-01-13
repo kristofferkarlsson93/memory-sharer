@@ -29,6 +29,14 @@ exports.User = class {
 		return this.user.id;
 	}
 
+	setContacts(contactGuidArray) {
+		this.user.contacts = contactGuidArray;
+	}
+
+	getContacts() {
+		return this.user.contacts;
+	}
+
 	getJsonForCreatingNewUser() {
 		return {
 			guid: this.getGuid(),

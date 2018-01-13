@@ -7,12 +7,6 @@ const addNewUser = async(user) => {
 	return returnedData;
 }
 
-const addContactToUser = (user, contact) => {
-	const data = firebaseParser.parseForAddingContactToUser(user, contact);
-	db.addContactToUser(data);
-}
-
 module.exports = {
 	addNewUser,
-	addContactToUser
 };
