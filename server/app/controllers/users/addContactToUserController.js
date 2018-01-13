@@ -20,16 +20,17 @@ const invoke = async(data) => {
 
 		const usersContacts = await contactGetter.getContactsForUser(user);
 		user.setContacts(usersContacts);
-		
 		ruleAssembler.usersShouldNotKnowOfNewContact(user, contact);
 	} catch (error) {
 		if (isKnownError(error)) {
 			return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
 		} else throw new Error(error);
 	}
+	const contactList = user.getContacts();
+	contactList.push(contact.getGuid());	
 
 	await contactsPersister.addContactToUser(user, contact);
-	return controllerHelper.successResponse(200, {});
+	return controllerHelper.successResponse(200, {contactList});
 }
 
 const getWantedUsers = (activeUsersGuid, contactToAddsGuid) => {
