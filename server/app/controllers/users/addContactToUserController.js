@@ -18,7 +18,7 @@ const invoke = async(data) => {
 	try {
 		ruleAssembler.userAndContactShouldExist(user, contact);
 
-		const usersContacts = await contactGetter.getContactsForUser(user);
+		const usersContacts = await contactGetter.getContactsByGuid(user.getGuid());
 		user.setContacts(usersContacts);
 		ruleAssembler.usersShouldNotKnowOfNewContact(user, contact);
 	} catch (error) {

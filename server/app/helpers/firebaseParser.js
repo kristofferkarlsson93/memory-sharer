@@ -31,7 +31,7 @@ const parseListOfContactGuids = (data) => {
 }
 
 const _getFireBaseIdFromData = (data) => {
-  return Object.keys(data)[0].filter;
+  return Object.keys(data)[0];
 }
 
 const _extractRelevantData = (data) => {

@@ -14,4 +14,18 @@ module.exports = (app, db) => {
 		response.status(result.status).send(result.body);
 	});
 
+	app.get('/user/:userGuid', async(request, response) => {
+		const getUserController = require('../controllers/users/getUserController');
+		const result = await getUserController.invoke(request.params);
+		response.status(result.status).send(result.body);
+	});
+
+	app.get('/contacts/:userGuid', async(request, response) => {
+		const getContactsForUserController = require('../controllers/contacts/getContactsForUserController');
+		const result = await getContactsForUserController.invoke(request.params);
+		response.status(result.status).send(result.body);
+	});
+
 }
+
+//https://www.youtube.com/watch?v=srPXMt1Q0nY

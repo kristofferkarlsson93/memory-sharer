@@ -1,9 +1,9 @@
 'use strict';
 const contactsRef = require('../configs/dbConfig').contactsRef;
 
-const getContactsForUser = (user) => {
+const getContactsByGuid = (userGuid) => {
 	return new Promise( (resolve, reject) => {
-		contactsRef.orderByKey().equalTo(user.getGuid()).once('value', snapshot => {
+		contactsRef.orderByKey().equalTo(userGuid).once('value', snapshot => {
 			resolve(snapshot.val());
 		});
 	});
@@ -15,6 +15,6 @@ const addContactToUser = (parsedData) => {
 }
 
 module.exports = {
-	getContactsForUser,
+	getContactsByGuid,
 	addContactToUser
 }

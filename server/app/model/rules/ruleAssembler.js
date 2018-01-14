@@ -2,6 +2,12 @@ const errorCodes = require('../../constants/errorCodes').errorCodes;
 const userExists = require('./simpleRules/userShouldExist');
 const userShouldNotKnowOfContact = require('./simpleRules/userShouldNotKNowOfNewContact');
 
+const userShouldExist = (user) => {
+	if (!userExists(user)) {
+		throw errorCodes.USER_DOES_NOT_EXISTS;
+	}
+}
+
 const userAndContactShouldExist = (user, contact) => {
 	if (!userExists(user)) {
 			throw errorCodes.USER_DOES_NOT_EXISTS;
@@ -20,5 +26,6 @@ const usersShouldNotKnowOfNewContact = (user, contact) => {
 
 module.exports = {
 	userAndContactShouldExist,
-	usersShouldNotKnowOfNewContact
+	usersShouldNotKnowOfNewContact,
+	userShouldExist
 }
