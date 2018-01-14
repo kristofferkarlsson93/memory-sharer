@@ -15,8 +15,6 @@ const getFullyQualifiedContacts = async (contactGuids) => {
   const calls = Array.prototype.map.call(contactGuids, (guid) => userGetter.getUserByGuid(guid) );
   const users = Promise.all(calls);
   return users;
-
-  //return calls;
 }
 
 module.exports = {invoke};
