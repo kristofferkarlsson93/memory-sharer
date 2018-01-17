@@ -1,12 +1,14 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
+const multerFileUpload = require('./app/configs/multerConfig');
+
 
 const app = express();
 const port = 8000;
 
 app.use(bodyParser.urlencoded({extended: true}));
-require('./app/routes')(app);
+require('./app/routes')(app, multerFileUpload);
 app.listen(port, () => {
 });
 

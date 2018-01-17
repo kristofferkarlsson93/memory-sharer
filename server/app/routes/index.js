@@ -3,9 +3,9 @@ const userRoutes = require('./userRoutes');
 const contactRoutes = require('./contactRoutes');
 const memoryRoutes = require('./memoryRoutes');
 
-module.exports = (app) => {
+module.exports = (app, multerFileUpload) => {
     userRoutes(app);
     contactRoutes(app);
-    memoryRoutes(app) //should this recieve the multer config instead?
+    memoryRoutes(app, multerFileUpload);
     
 }

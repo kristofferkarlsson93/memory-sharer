@@ -1,3 +1,5 @@
+const ruleAssembler = require('../../model/rules/ruleAssembler');
+
 
 const invoke = (bodyData, fileData) => {
   /**
@@ -14,5 +16,15 @@ const invoke = (bodyData, fileData) => {
    * ping the recipients servers so they know that stuff is awailable
    * 
    * */
+
+   console.log(fileData);
+   console.log('body', bodyData);
+   try {
+     ruleAssembler.givenFilePathShouldExist(fileData.path);
+   } catch(error) {
+     console.log('ERROR', error);
+   }
   
 }
+
+module.exports = {invoke};

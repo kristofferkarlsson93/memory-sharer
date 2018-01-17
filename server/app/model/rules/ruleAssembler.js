@@ -1,6 +1,7 @@
 const errorCodes = require('../../constants/errorCodes').errorCodes;
 const userExists = require('./simpleRules/userShouldExist');
 const userShouldNotKnowOfContact = require('./simpleRules/userShouldNotKNowOfNewContact');
+const filePathExists = require('./simpleRules/filePathShouldExist');
 
 const userShouldExist = (user) => {
 	if (!userExists(user)) {
@@ -23,9 +24,16 @@ const usersShouldNotKnowOfNewContact = (user, contact) => {
 	} else return true;
 }
 
+const givenFilePathShouldExist = (filePath) => {
+	if (!filePathExists(filePath)) {
+		throw errorCodes.IMAGE_COULD_NOT_BE_SAVED;
+	} else return true;
+}
+
 
 module.exports = {
 	userAndContactShouldExist,
 	usersShouldNotKnowOfNewContact,
-	userShouldExist
+	userShouldExist,
+	givenFilePathShouldExist
 }

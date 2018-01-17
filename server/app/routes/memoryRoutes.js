@@ -1,14 +1,14 @@
-const uploadFile = require('../configs/multerConfig');
 
+module.exports = (app, multerFileUpload) => {
 
-module.exports = (app) => {
-
-  app.post('/memory', uploadFile.single(), (request, response) => {
-    const addMemoryController('../controllers/memories/addMemoryController.js');
+  app.post('/memory', multerFileUpload.single('memoryImage'), (request, response) => {
+    const addMemoryController = require('../controllers/memories/addMemoryController');
     const result = addMemoryController.invoke(request.body, request.file);
+    response.send('testar');
   });
+
+
+  app.get('memory/:memoryGuid', (request, response) => {
+  })
 }
 
-app.get('memory/:memoryGuid', (request, response) => {
-
-})

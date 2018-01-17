@@ -11,19 +11,17 @@ const fileFilter = (request, file, callback) => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../../public/images');
+    cb(null, 'public/images');
   },
   filename: function (req, file, cb) {
     const splitedName = file.originalname.split('.');
-    cb(null, file.filename + splitedName[splitedName.length-1]);
+    cb(null, file.fieldname + '-' + Date.now() + Math.floor((Math.random() * 1000) + 1) + '.' + splitedName[splitedName.length-1]);
   }
 });
 
-module.exports = () => {
-  return multer({
+module.exports = multer({
     storage: storage,
     fileFilter: fileFilter
   });
-}
 
 
