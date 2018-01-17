@@ -1,9 +1,11 @@
-//Importera en multer config som skickas in som mellanlager i posten
+const uploadFile = require('../configs/multerConfig');
 
 
 module.exports = (app) => {
-  app.post('/memory', (request, response) => {
 
+  app.post('/memory', uploadFile.single(), (request, response) => {
+    const addMemoryController('../controllers/memories/addMemoryController.js');
+    const result = addMemoryController.invoke(request.body, request.file);
   });
 }
 

@@ -9,7 +9,7 @@ const fileFilter = (request, file, callback) => {
   }
 };
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '../../public/images');
   },
@@ -19,5 +19,11 @@ var storage = multer.diskStorage({
   }
 });
 
+module.exports = () => {
+  return multer({
+    storage: storage,
+    fileFilter: fileFilter
+  });
+}
 
 
