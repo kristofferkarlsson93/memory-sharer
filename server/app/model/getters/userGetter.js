@@ -22,6 +22,7 @@ const userGuidExists = (userGuid) => {
 }
 
 const getUserByGuid = (userGuid) => {
+	console.log('bas', userGuid);
 	return db.getUserByGuid(userGuid).then( (userData) => {
 		return userData ? fireBaseParser.parseDataToUser(userData) : "";
 	});
