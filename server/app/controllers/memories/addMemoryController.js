@@ -14,8 +14,10 @@ const invoke = async (bodyData, fileData) => {
   sender.setContacts(senderContacts);
   console.log('bodyDataMeds', bodyData.message);
 
+  console.log(fileData);
   data = {
     sender: sender,
+    guid: fileData.filename.split('.')[0],
     recipients: recipientsGuids,
     message: bodyData.message ? bodyData.message : '',
     filePath: fileData.path

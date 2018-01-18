@@ -33,6 +33,7 @@ const parseListOfContactGuids = (data) => {
 const parseForAddingMemory = (data) => {
   return {
     sender: data.sender.getGuid(),
+    guid: data.guid,
     data: {
       recipients: data.recipients,
       message: data.message,
