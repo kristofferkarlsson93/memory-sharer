@@ -12,9 +12,11 @@ const db = admin.database();
 const ref = db.ref("server");
 const usersRef = ref.child('users');
 const contactsRef = ref.child('contacts');
+const memoriesRef = ref.child('memories');
 
 module.exports = {
     ref,
     usersRef,
-    contactsRef
+    contactsRef,
+    memoriesRef
 };

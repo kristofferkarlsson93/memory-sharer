@@ -5,7 +5,6 @@ const errors = require('../../constants/errorCodes');
 const controllerHelper = require('../../helpers/controllerHelper');
 
 const invoke = async (data) => {
-  console.log(data);
   const userGuid = data.userGuid;
   const user = await userGetter.getUserByGuid(userGuid); 
   try {

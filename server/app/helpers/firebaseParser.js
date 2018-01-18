@@ -30,6 +30,17 @@ const parseListOfContactGuids = (data) => {
   return contactGuidList;
 }
 
+const parseForAddingMemory = (data) => {
+  return {
+    sender: data.sender.getGuid(),
+    data: {
+      recipients: data.recipients,
+      message: data.message,
+      filePath: data.filePath
+    }
+  }
+}
+
 const _getFireBaseIdFromData = (data) => {
   return Object.keys(data)[0];
 }
@@ -42,5 +53,6 @@ const _extractRelevantData = (data) => {
 module.exports = {
   parseDataToUser,
   parseForAddingContactToUser,
-  parseListOfContactGuids
+  parseListOfContactGuids,
+  parseForAddingMemory
 }

@@ -37,6 +37,14 @@ exports.User = class {
 		return this.user.contacts;
 	}
 
+	getClientInfo() {
+		return this.user.clientInfo;
+	}
+
+	hasClientInfo() {
+		return true;
+	}
+
 	getJsonForCreatingNewUser() {
 		return {
 			guid: this.getGuid(),

@@ -2,6 +2,8 @@ const errorCodes = require('../../constants/errorCodes').errorCodes;
 const userExists = require('./simpleRules/userShouldExist');
 const userShouldNotKnowOfContact = require('./simpleRules/userShouldNotKNowOfNewContact');
 const filePathExists = require('./simpleRules/filePathShouldExist');
+const senderKnowOfRecipient = require('./simpleRules/senderShouldHaveContact');
+const hasClientInfo = require('./simpleRules/recipientsShouldBeAbleToReceive');
 
 const userShouldExist = (user) => {
 	if (!userExists(user)) {
@@ -30,10 +32,36 @@ const givenFilePathShouldExist = (filePath) => {
 	} else return true;
 }
 
+const recipientsShouldBeValid = (sender, recipients) => {
+	_senderShouldHaveContacts(sender, recipients);
+	//_recipientsShouldBeAbleToReceive(recipients);
+	return true;
+}
+
+const _senderShouldHaveContacts = (sender, recipients) => {
+	recipients.forEach(recipient => {
+		if (!senderKnowOfRecipient(sender, recipient)) {
+			throw errorCodes.INVALID_RECIPIENT;
+		}
+	});
+	return true;
+}
+
+const _recipientsShouldBeAbleToReceive = (recipients) => {
+	console.log('recipient in _recipientsShouldBeAbleToReceive', recipients);
+	recipients.forEach(recipient => {
+		console.log(recipient);
+		if(!hasClientInfo(recipient)) {
+			//not implemented
+		}
+	});
+}
+
 
 module.exports = {
 	userAndContactShouldExist,
 	usersShouldNotKnowOfNewContact,
 	userShouldExist,
-	givenFilePathShouldExist
+	givenFilePathShouldExist,
+	recipientsShouldBeValid
 }
