@@ -31,15 +31,17 @@ const parseListOfContactGuids = (data) => {
 }
 
 const parseForAddingMemory = (data) => {
-  return {
+  const object = {
     sender: data.sender.getGuid(),
     guid: data.guid,
-    data: {
-      recipients: data.recipients,
+    data: {}
+  }
+  object.data[data.guid] = {
+    recipients: data.recipients,
       message: data.message,
       filePath: data.filePath
-    }
-  }
+  } 
+  return object;
 }
 
 const _getFireBaseIdFromData = (data) => {
