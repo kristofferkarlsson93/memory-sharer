@@ -48,9 +48,7 @@ const _senderShouldHaveContacts = (sender, recipients) => {
 }
 
 const _recipientsShouldBeAbleToReceive = (recipients) => {
-	console.log('recipient in _recipientsShouldBeAbleToReceive', recipients);
 	recipients.forEach(recipient => {
-		console.log(recipient);
 		if(!hasClientInfo(recipient)) {
 			//not implemented
 		}

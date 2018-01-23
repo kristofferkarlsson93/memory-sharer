@@ -1,11 +1,18 @@
 const memoriesRef = require('../configs/dbConfig').memoriesRef;
 
 const addMemory = (data) => {
-  const senderRef = memoriesRef.child(data.sender);
-  console.log(data);
-  senderRef.update(data.data);
+  memoriesRef.update(data);
+}
+
+const getSingleMemoryByGuid = (memoryGuid) => {
+  return new Promise( (resolve, reject) => {
+		memoriesRef.orderByKey().equalTo(memoryGuid).once('value', snapshot => {
+			resolve(snapshot.val());
+		});
+	});
 }
 
 module.exports = {
-  addMemory
+  addMemory,
+  getSingleMemoryByGuid
 }

@@ -1,4 +1,5 @@
 const {User} = require('../objects/user');
+const { Memory } = require('../objects/Memory');
 
 const parseDataToUser = (data) => {
   const root = _extractRelevantData(data);
@@ -31,17 +32,27 @@ const parseListOfContactGuids = (data) => {
 }
 
 const parseForAddingMemory = (data) => {
-  const object = {
-    sender: data.sender.getGuid(),
-    guid: data.guid,
-    data: {}
-  }
-  object.data[data.guid] = {
+  const object = {};
+  object[data.guid] = {
+    sender: data.sender.getGuid(),    
     recipients: data.recipients,
-      message: data.message,
-      filePath: data.filePath
+    message: data.message,
+    filePath: data.filePath
   } 
-  return object;
+}
+
+const parseMemoryDataToMemoryObject = (firebaseMemoryData) => {
+  if (firebaseMemoryData) {
+    const relevantData = _extractRelevantData(firebaseMemoryData);
+    console.log('relevantData', relevantData);
+    return new Memory({
+      guid: _getFireBaseIdFromData(firebaseMemoryData),
+      filePath: relevantData.filePath,
+      message: relevantData.message,
+      recipients: relevantData.recipients,
+      sender: relevantData.sender,
+    });
+  } else return '';
 }
 
 const _getFireBaseIdFromData = (data) => {
@@ -57,5 +68,6 @@ module.exports = {
   parseDataToUser,
   parseForAddingContactToUser,
   parseListOfContactGuids,
-  parseForAddingMemory
+  parseForAddingMemory,
+  parseMemoryDataToMemoryObject
 }
