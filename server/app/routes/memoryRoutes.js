@@ -11,6 +11,7 @@ module.exports = (app, multerFileUpload) => {
 
   app.get('/memory/:memoryGuid', async(request, response) => {
     const getMemoryController = require('../controllers/memories/getMemoriesController');
+    request.params.clientGuid = request.query.clientGuid
     const result = await getMemoryController.invoke(request.params);
     console.log('result', result);
     response.send('testing');

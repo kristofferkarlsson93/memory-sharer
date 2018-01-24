@@ -4,6 +4,7 @@ const userShouldNotKnowOfContact = require('./simpleRules/userShouldNotKNowOfNew
 const filePathExists = require('./simpleRules/filePathShouldExist');
 const senderKnowOfRecipient = require('./simpleRules/senderShouldHaveContact');
 const hasClientInfo = require('./simpleRules/recipientsShouldBeAbleToReceive');
+const clientIsARecipient = require('./simpleRules/clientShouldBeARecipient');
 
 const userShouldExist = (user) => {
 	if (!userExists(user)) {
@@ -38,6 +39,12 @@ const recipientsShouldBeValid = (sender, recipients) => {
 	return true;
 }
 
+const clientShouldBeARecipient = (client, memory) => {
+	if (!clientIsARecipient(client.getGuid(), memory)) {
+		throw errorCodes.NOT_ALLOWED_TO_GET_MEMORY;
+	} else return true;
+}
+
 const _senderShouldHaveContacts = (sender, recipients) => {
 	recipients.forEach(recipient => {
 		if (!senderKnowOfRecipient(sender, recipient)) {
@@ -61,5 +68,6 @@ module.exports = {
 	usersShouldNotKnowOfNewContact,
 	userShouldExist,
 	givenFilePathShouldExist,
-	recipientsShouldBeValid
+	recipientsShouldBeValid,
+	clientShouldBeARecipient
 }
