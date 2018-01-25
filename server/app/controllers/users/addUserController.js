@@ -20,7 +20,7 @@ const invoke = async (data) => {
 				throw 'INVALID_GUID';
 			}
 		} else {
-			throw 'INVALID_USER_DATA';
+			throw 'MISSING_PARAMETER';
 		} 
 	} catch (exception) {
 		return _handleExceptions(exception);

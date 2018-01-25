@@ -39,6 +39,7 @@ const parseForAddingMemory = (data) => {
     message: data.message,
     filePath: data.filePath
   } 
+  return object;
 }
 
 const parseMemoryDataToMemoryObject = (firebaseMemoryData) => {
