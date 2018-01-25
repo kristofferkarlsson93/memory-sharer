@@ -3,9 +3,9 @@
 ## Server API documentation
 The basic url to the server is `to be added`
 
-### Get user
+### User
 
-#### Route
+#### Route - Get User
 GET: `baseURL/user/{id}`
 
 #### Response
@@ -14,85 +14,146 @@ GET: `baseURL/user/{id}`
 ```
 {
     name: 'Kristoffer',
+    guid: "bjbsnjfhdfngjdf4541154dsfds"
     id: 'hgfisds44',
-    contacts: [
-        {
-            name: 'Arne',
-            id: 'dsfdsfd41'
-        },
-        contacts: {
-            name: 'Anka',
-            id: 'dfhdfd458'
-        }, 
-        ...,
-        memories: [
-            {
-                id: 'sdfdfh44',
-                image: base64-encoded string,
-                greeting: 'Here we are at the beach eating sand',
-                toId: [{
-                    {
-                        name: 'Anka'
-                        id: dfjkhdshj55
-                    },
-                    ...
-                }],
-            }
-            ...
-        ]
-    ]
 }
 ```
-#### 400
+#### 404
 ```
 {
     error: {
-        code: 'INVALID_ID'   
+        code: 'USER_DOES_NOT_EXISTS'   
     }
 }
 ```
 
-### Get memories
-
-#### Route
-GET: `baseURL/memories`
-
-##### Parameters
-| Parameter | value                     | format               |
-| --------- |:-------------------------:| --------------------:|
-| userId    | the users id              |{id: 'dfdfsf44',...}  |
-| memoryIds | list if memory-ids to get |[{id: 'sdsds44'},...] |
-
-###### Example request body
+#### Route - Add User
+POST: `baseURL/user`
 ```
 {
-    userId: 'dfdfsf44',
-    memoryIds: [
-        {
-            id: 'fdsdf44'
-        },
-        ...
-    ]
+    userName: 'Kristoffer',
+    guid: 'sdfsdfsf45rers54esr'
 }
 ```
-**If no ids are given, all the users memories will be returned**
 
 #### Response
 
 ##### 200
 ```
 {
-    memories: [
-        {
-            id: 'hdfersf44',
-            image: base64 encoded string,
-            greeting: 'Here we are at the beach eating sand'
-        },
-        ...
-    ],
-    from: {
-        id: 'dfdf44',
-        name: 'Arne'
+    "user": {
+        "userName": "Olle",
+        "guid": "sdffsdl445dsf4553dsf",
+        "id": "-L3j8Vu6teP7R7SDi4hC"
+    }
+}
+
+```
+##### 400
+```
+{
+    error: {
+         code: 'INVALID_USERNAME' | INVALID_GUID | INVALID_USER_DATA
+    }
+}
+```
+
+##### 403
+```
+{
+    error: {
+         code: USER_NAME_ALREADY_TAKEN
+    }
+}
+```
+
+### Contacts 
+
+#### Route Get contacts
+GET: `baseURL/contacts/{userGuid}`
+
+#### Response 
+
+##### 200
+```
+[
+    {
+        "user": {
+            "userName": "Anna-Karin",
+            "guid": "s4f754sd2fsfajfdsda54",
+            "id": "-L2WrCY1G-N89gRxxXek"
+        }
+    },
+    {
+        "user": {
+            "userName": "Anton",
+            "guid": "4dfgdfgdfgfdg845453d",
+            "id": "-L2lk7TNfL3WzGuyoyM1"
+        }
+    },
+    ...
+]
+```
+
+#### Route Add contact to user
+GET: `baseURL/user/{userGuid}/contacts/contactGuid`
+
+#### Response
+##### 200 
+```
+{
+    "contactList": [
+        "dfks4sdfsdf854fdsfsd",
+        "dsf4dsfg7sdr48g6vdg7fd6",
+        "sd45gfd6f4ds68f54ds6f8s4",
+        "s54d1fds4fds65f4sd6d531fcd"  // <--- New contact
+    ]
+}
+```
+
+##### 400
+```
+error {
+    code: ALREADY_A_CONTACT
+}
+```
+
+##### 404 
+```
+{
+    error: {
+         code: USER_DOES_NOT_EXISTS | CONTACT_DOES_NOT_EXISTS
+    }
+}
+```
+
+
+### Memory
+
+#### Route - Get memory data
+GET: `baseURL/memory/{memoryGuid}?senderGuid=...`
+
+##### Parameters
+| Parameter   | value                     | format            |
+| ----------- |:-------------------------:| -----------------:|
+| memoryGuid  | the guid for the memory   | A URL-param       |
+| senderGuid  | list if memory-ids to get | A url query param |
+
+#### Response
+
+##### 200
+```
+{
+    "memory": {
+        "guid": "memory-1516738683172109",
+        "filePath": "public\\images\\memory-1516738683172109.png",
+        "message": "Hej här sitter vi vid matbordet och chillar!",
+        "recipients": [
+            "dfhksdfhsidfyh54sdf4ds45",
+            "sdffsdf54568ds7f4fd"
+        ],
+        "sender": "sdkfjjsfuhfsfd4583487fdfsz",
+        "senderName": "Kristoffer"
     }
 }
 ``` 
@@ -101,72 +162,78 @@ GET: `baseURL/memories`
 ```
 {
     error: {
-        code: 
+        code: INVALID_IMAGE
     }
 }
 ```
 
-### Add user
-
-#### Route
-POST: `baseURL/user`
+##### 403
 ```
 {
-    name: 'Kristoffer',
+    error: {
+        code: NOT_ALLOWED_TO_GET_MEMORY 
+    }
 }
 ```
+
+
+#### Route - Get memory image
+GET: `baseURL/image/?filePath=....`
+
+##### Parameters
+| Parameter   | value                     | format            |
+| ----------- |:-------------------------:| -----------------:|
+| filePath    | Path to the file on disk  | A URL query param |
 
 #### Response
 
 ##### 200
 ```
-{
-    id: 'srhgsdhfsdf44'
-}
-```
+image
+``` 
+
 ##### 400
+```
 {
     error: {
-         code: 'INVALID_USERNAME'
+        code: INVALID_IMAGE
     }
 }
+```
 
-### Update user
-
-#### Route
- PUT OR PATCH???
-
-### Send memory
-
-#### Route
+#### Route - Add memory
 POST: `baseURL/memory`
-```
-{
-    fromId: 'dfbhdjbf44',
-    toId: [
-        {
-            id: fggdgg44',
-        },
-        ...
-    ],
-    image: base64-incoded string,
-    greeting: 'Here we are at the beach eating sand' 
-} 
-```
+
+##### Parameters
+| Parameter   | value                 | format               |
+| ----------- |:---------------------:| --------------------:|
+| memory      | Image to be uploaded  | .png or .jpeg - file |
+| recipients  | Array of user guids   | [..., ..., ..., ]    |
+| sender      | A user guid           | .......              |
+| message     | String (Optional      | 'Hello my friend'    |
+
 #### Response
 
 ##### 200
 ```
 {
-    ...
+    "failedToSendTo": []
 }
-```
+``` 
 
-##### 400 
+##### 400
 ```
 {
     error: {
-        code: 'INVALID_RECEIVER' | INVALID_SENDER | UNKNOWN_IMAGE_FORMAT | INVALID_GREETING
+        code: INVALID_IMAGE
+    }
+}
+```
+##### 404
+```
+{
+    error: {
+        code: USER_DOES_NOT_EXISTS
     }
 }
 ```
