@@ -1,10 +1,12 @@
+const generalConfig = require('../configs/generalConfig');
+
 exports.Memory = class {
   constructor(json) {
     this.memory = json;
   }
 
   getFilePath() {
-    return this.memory.getFilePath;
+    return this.memory.filePath;
   }
 
   getMessage() {
@@ -13,5 +15,17 @@ exports.Memory = class {
 
   getRecipients() {
     return this.memory.recipients;
+  }
+
+  getSenderGuid() {
+    return this.memory.sender;
+  }
+
+  setSenderName(name) {
+    this.memory.senderName = name;
+  }
+
+  getSenderName() {
+    return this.memory.senderAsUser;
   }
 }

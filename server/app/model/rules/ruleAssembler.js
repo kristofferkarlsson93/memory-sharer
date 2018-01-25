@@ -29,7 +29,7 @@ const usersShouldNotKnowOfNewContact = (user, contact) => {
 
 const givenFilePathShouldExist = (filePath) => {
 	if (!filePathExists(filePath)) {
-		throw errorCodes.IMAGE_COULD_NOT_BE_SAVED;
+		throw errorCodes.INVALID_IMAGE;
 	} else return true;
 }
 

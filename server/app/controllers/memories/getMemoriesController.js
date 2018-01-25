@@ -7,23 +7,24 @@ const isKnownError = require('../../helpers/errorHandlingHelper').isKnownError;
 
 
 const invoke = async(data) => {
-  console.log(data);
   const memoryGuid = data.memoryGuid;
-  const [client, memory] = await getRelevantData();
-
+  const clientGuid = data.clientGuid;
+  const [client, memory] = await getRelevantData(clientGuid, memoryGuid);
   try {
-    ruleAssembler.clientShouldBeARecipient(clint, memory);
+    ruleAssembler.clientShouldBeARecipient(client, memory);
+    ruleAssembler.givenFilePathShouldExist(memory.getFilePath());
   } catch (error) {
     if (isKnownError(error)) {
-      
-    }
+      console.log(error);
+      return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
+    } else throw error;
   }
-
-  //TODO implement the rule to see if memory has the client in its recipients;
+  memory.setSenderName(await userGetter.getUserByGuid(memory.getSenderGuid()).then (user => user.getUserName()));
+  return controllerHelper.successResponse(200, memory);
 }
 
 const getRelevantData = (clientGuid, memoryGuid) => {
-  return Promise.all([userGetter(clientGuid), memoriesGetter(memoryGuid)]);
+  return Promise.all([userGetter.getUserByGuid(clientGuid), memoriesGetter.getSingleMemoryByGuid(memoryGuid)]);
 } 
 
 module.exports = {invoke};

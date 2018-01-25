@@ -44,7 +44,6 @@ const parseForAddingMemory = (data) => {
 const parseMemoryDataToMemoryObject = (firebaseMemoryData) => {
   if (firebaseMemoryData) {
     const relevantData = _extractRelevantData(firebaseMemoryData);
-    console.log('relevantData', relevantData);
     return new Memory({
       guid: _getFireBaseIdFromData(firebaseMemoryData),
       filePath: relevantData.filePath,
