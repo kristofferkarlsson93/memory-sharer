@@ -37,7 +37,6 @@ POST: `baseURL/user`
 ```
 
 #### Response
-
 ##### 200
 ```
 {
@@ -96,7 +95,7 @@ GET: `baseURL/contacts/{userGuid}`
 ```
 
 #### Route Add contact to user
-GET: `baseURL/user/{userGuid}/contacts/contactGuid`
+POST: `baseURL/user/{userGuid}/contacts/contactGuid`
 
 #### Response
 ##### 200 
@@ -106,7 +105,7 @@ GET: `baseURL/user/{userGuid}/contacts/contactGuid`
         "dfks4sdfsdf854fdsfsd",
         "dsf4dsfg7sdr48g6vdg7fd6",
         "sd45gfd6f4ds68f54ds6f8s4",
-        "s54d1fds4fds65f4sd6d531fcd"  // <--- New contact
+        "s54d1fds4fds65f4sd6d531fcd"  // <-- New contact
     ]
 }
 ```
@@ -256,6 +255,11 @@ Successfully deleted memory
 }
 ```
 
+
+
+## Tests
+
+Use `mocha --recursive` to run all tests
 
 
 
