@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import { TabNavigator } from 'react-navigation';
 import HomeScreen from './screens/MainScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -9,29 +10,40 @@ const Navigator = TabNavigator({
   HomeScreen: {
     screen: HomeScreen,
     navigationOptions: {
-      tabBarLabel: 'Swosha hälsning',
-      tabBarIcon: () => <Icon size={28} color="white" name="play-arrow" />
+      tabBarLabel: 'Swosha',
+      tabBarIcon: () => (<Icon size={24} color="white" name="play-arrow" />)
     },
   },
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: {
-      tabBarLabel: 'Mina swosh',
-      tabBarIcon: () => <Icon size={28} color="white" name="person" />
+      tabBarLabel: 'Jag',
+      tabBarIcon: () => (<Icon size={24} color="white" name="person" />)
     },
   }
 
 }, {
+  tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
   animationEnabled: true,
   tabBarOptions: {
-    activeTintColor: '#e91e63',
-    showIcon: true,
-    showLabel: false,
+    //showIcon: true,
+    //showLabel: true,
+    bottomNavigationOptions: {
+      labelColor: 'white',
+      rippleColor: 'white',
+      tabs: {
+        HomeScreen: {
+          barBackgroundColor: '#B2EBF2'
+        },
+        ProfileScreen: {
+          barBackgroundColor: '#B2DFDB'         
+        }
+      }
+    }
   },
-  initialRouteName: 'HomeScreen',
-}
-);
+  //initialRouteName: 'HomeScreen',
+});
 
 
 export default Navigator;
