@@ -5,6 +5,7 @@ import { TabNavigator } from 'react-navigation';
 import HomeScreen from './screens/MainScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import colors from './constants/colors';
 
 const Navigator = TabNavigator({
   HomeScreen: {
@@ -34,7 +35,7 @@ const Navigator = TabNavigator({
       rippleColor: 'white',
       tabs: {
         HomeScreen: {
-          barBackgroundColor: '#B2EBF2'
+          barBackgroundColor: colors.primaryColor
         },
         ProfileScreen: {
           barBackgroundColor: '#B2DFDB'         
