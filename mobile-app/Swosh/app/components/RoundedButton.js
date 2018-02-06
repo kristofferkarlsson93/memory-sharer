@@ -15,7 +15,13 @@ export default class RoundedButton extends React.Component {
           height: this.props.size,
           backgroundColor: this.props.backgroundColor,
           borderRadius:100,
+          elevation: 5,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.8,
+          shadowRadius: 2,
         }} 
+        onPress={this.props.onPress}
       >
         <Icon size={32} color="white" name={this.props.icon} />
     </TouchableOpacity>
