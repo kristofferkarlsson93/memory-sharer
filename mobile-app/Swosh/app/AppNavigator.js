@@ -6,6 +6,7 @@ import HomeScreen from './screens/MainScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from './constants/colors';
+import LoadingScreen from './screens/LoadingScreen';
 
 const Navigator = TabNavigator({
   HomeScreen: {
@@ -20,6 +21,13 @@ const Navigator = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Jag',
       tabBarIcon: () => (<Icon size={24} color="white" name="person" />)
+    },
+  },
+  LoadingScreen: {
+    screen: LoadingScreen,
+    navigationOptions: {
+      tabBarLabel: 'Swosha',
+      tabBarIcon: () => (<Icon size={24} color="white" name="play-arrow" />)
     },
   }
 

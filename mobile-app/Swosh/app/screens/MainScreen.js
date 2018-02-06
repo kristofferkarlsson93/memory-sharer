@@ -47,12 +47,12 @@ export default class MainScreen extends React.Component {
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      //aspect: [4, 3], 
       base64: true,
 
     });
 
-    console.log(result);
+    //console.log(result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });
