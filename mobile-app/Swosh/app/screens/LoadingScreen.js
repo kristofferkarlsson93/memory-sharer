@@ -4,8 +4,18 @@ import LoadingSpinner from '../components/LoadingSpinner'
 
 export default class LoadingScreen extends React.Component {
 
+  componentDidMount() {
+    //Check if use has an account;
+    const userHasAccount = true;
+    if (userHasAccount) {
+      //getUsersData()
+    } else {
+      
+    }
+  }
 
   render() {
+    
     return (
       <View style={styles.container}>
         <LoadingSpinner/>

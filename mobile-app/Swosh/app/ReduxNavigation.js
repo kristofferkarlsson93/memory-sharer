@@ -1,7 +1,7 @@
 import React from 'react';
 import { BackHandler } from 'react-native';
 import { addNavigationHelpers, NavigationActions } from "react-navigation";
-import AppNavigator from './AppNavigator';
+import LoginNavigator from './LoginNavigator';
 
 export default class ReduxNavigation extends React.Component {
 
@@ -24,7 +24,7 @@ export default class ReduxNavigation extends React.Component {
 
   render() {
     const { dispatch, navigation } = this.props;
-    return <AppNavigator
+    return <LoginNavigator
       navigation={addNavigationHelpers({
         dispatch,
         state: navigation
