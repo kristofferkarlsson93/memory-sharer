@@ -25,3 +25,5 @@ export default () => (
 // https://www.youtube.com/watch?v=d1nw3QdLv8w
 // https://docs.expo.io/versions/latest/sdk/camera.html
 // https://docs.expo.io/versions/latest/sdk/imagepicker.html
+
+//https://react-native-training.github.io/react-native-elements/ <-- element toolkit
