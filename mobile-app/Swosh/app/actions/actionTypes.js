@@ -2,5 +2,10 @@ export default {
   addSwoshDataActions: {
     ADD_CONTACTS: 'ADD_CONTACTS',
     ADD_GREETING: 'ADD_GREETING',
+  },
+  editUserAction: {
+    CREATE_USER: 'CREATE_USER',
+    CREATE_USER_SUCCESS: 'CREATE_USER_SUCCESS',
+    CREATE_USER_FAILURE: 'CREATE_USER_FAILURE',
   }
 }

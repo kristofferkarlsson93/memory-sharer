@@ -20,7 +20,7 @@ export default class RoundedButton extends React.Component {
         }} 
         onPress={this.props.onPress}
       >
-        <Icon size={32} color="white" name={this.props.icon} />
+        <Icon size={32} color={this.props.iconColor || 'white'} backgroundColor={this.props.backgroundColor} name={this.props.icon} />
     </TouchableOpacity>
     );
   }
