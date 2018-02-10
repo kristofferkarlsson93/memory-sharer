@@ -1,4 +1,5 @@
 export default {
   primaryColor: '#80DEEA',
-  primaryBorderColor: '#E0F7FA'
+  primaryBorderColor: '#E0F7FA',
+  error: '#FFAB91'
 }

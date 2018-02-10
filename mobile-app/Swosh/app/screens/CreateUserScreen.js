@@ -16,30 +16,86 @@ export default class CreateUserScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ''
+      username: '',
+      password: '',
+      email: '',
+      usernameColor: colors.primaryColor,
+      passwordColor: colors.primaryColor,
+      emailColor: colors.primaryColor
     }
     this.submit = this.onSubmit.bind(this);
   }
 
-  onSubmit(username) {
+  onSubmit() {
+    console.log('submit');
+    this.checkIfFormHasAllInput();
+  }
 
+  setInputLineColor(hasError) {
+    if (hasError) {
+      return colors.error
+    } else return colors.primaryColor;
+  }
+
+  checkIfFormHasAllInput() {
+    const {username, password, email} =  this.state;
+    console.log(!username);
+    let hasAllInput = true;
+    if (!username) {
+      this.setError('usernameColor');
+      hasAllInput = false;
+    } 
+    if (!password) {
+      this.setError('passwordColor');      
+      hasAllInput = false
+    } 
+    if (!email) {
+      this.setError('emailColor');
+      hasAllInput = false;
+    }
+    return hasAllInput;
+  }
+
+  setError(colorState) {
+    console.log('volor', colorState);
+    this.setState({[colorState]: colors.error});
   }
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <View style={styles.createUserContainer}>
-          <Icon size={50} color="white" name="person" />
+          <Icon size={50} color={colors.primaryColor} name="person" />
           <View style={styles.formContainer}>
-            <FormLabel><Text style={styles.label}>Välj användarnamn</Text></FormLabel>
             <FormInput 
-              inputStyle={styles.input} 
+              containerRef={component => this.usernameRef = component}
+              inputStyle={[styles.input, {borderBottomColor: this.state.usernameColor}]} 
+              placeholder='Välj användarnamn'
+              placeholderTextColor={colors.primaryColor}
               underlineColorAndroid='transparent'
               onChangeText={ input => this.setState({username: input}) }  
               onSubmitEditing={ _ => this.submit() }
             />
-          <Button style={{backgroundColor: 'transparent', borderColor: '#fff', width: 200, alignItems: 'center', justifyContent: 'center', }} textStyle={{fontSize: 18}}>
-            <Text style={{color: '#fff', fontSize: 20}}>Skapa användare</Text>
+            <FormInput 
+              containerRef={component => this.passwordRef = component}            
+              inputStyle={[styles.input, {borderBottomColor: this.state.passwordColor}]} 
+              placeholder='Välj lösenord'
+              placeholderTextColor={colors.primaryColor}
+              underlineColorAndroid='transparent'
+              onChangeText={ input => this.setState({password: input}) }  
+              onSubmitEditing={ _ => this.submit() }
+            />
+            <FormInput 
+              containerRef={component => this.emailRef = component}            
+              inputStyle={[styles.input, {borderBottomColor: this.state.emailColor}]} 
+              placeholder='Ange en epost'
+              placeholderTextColor={colors.primaryColor}
+              underlineColorAndroid='transparent'
+              onChangeText={ input => this.setState({email: input}) }  
+              onSubmitEditing={ _ => this.submit() }
+            />
+          <Button style={styles.button} textStyle={{fontSize: 18}} onPress={ _ => this.submit()}>
+            <Text style={{color: colors.primaryColor, fontSize: 20}}>Skapa användare</Text>
           </Button>
           </View>
         </View>
@@ -62,8 +118,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   createUserContainer: {
-    backgroundColor: colors.primaryColor,
-    height: 250,
+    padding: 20,
+    backgroundColor: '#fff',
     width: 300,
     borderRadius: 5,
     elevation: 5,
@@ -83,10 +139,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20, 
     borderBottomWidth: 1,
-    borderBottomColor: '#fff'
+    color: colors.primaryColor,
+    fontSize: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
-    borderColor: '#fff',
+    backgroundColor: 'transparent', 
+    borderColor: colors.primaryColor, 
+    width: 200, 
+    marginLeft: 17
   }
 });
 /**
