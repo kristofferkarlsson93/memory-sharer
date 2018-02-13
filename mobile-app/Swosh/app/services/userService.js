@@ -5,7 +5,6 @@ export const addUser = (userObject) => {
   if (!username || !password || !email) {
     throw 'Missing value when trying to create user';
   }
-  //Hash password
   const url = config.baseUrl + '/user';
   const postDate = {
     method: 'POST',
