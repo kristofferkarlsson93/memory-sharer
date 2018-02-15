@@ -7,6 +7,11 @@ const addNewUser = async(user) => {
 	return returnedData;
 }
 
+const addUser = (guid, username, email, password) => {
+	return db.addUser(firebaseParser.parseDataToCreateUser(guid, username, email, password));
+}
+
 module.exports = {
 	addNewUser,
+	addUser
 };

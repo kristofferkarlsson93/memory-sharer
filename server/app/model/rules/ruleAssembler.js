@@ -5,6 +5,28 @@ const filePathExists = require('./simpleRules/filePathShouldExist');
 const senderKnowOfRecipient = require('./simpleRules/senderShouldHaveContact');
 const hasClientInfo = require('./simpleRules/recipientsShouldBeAbleToReceive');
 const clientIsARecipient = require('./simpleRules/clientShouldBeARecipient');
+const usernameShouldNotBeTaken = require('./simpleRules/usernameCanNotBeOccupied');
+const emailIsValid = require('./simpleRules/emailShouldBeValid');
+const passwordIsValid = require('./simpleRules/passwordShouldBeValid');
+
+const usernameCanNotBeOccupied = (possibleEarlierUser) => {
+	if (!usernameShouldNotBeTaken(possibleEarlierUser)) {
+		throw errorCodes.USERNAME_ALREADY_TAKEN
+	} else return true;
+}
+
+const emailShouldBeValid = (email) => {
+	if (!emailIsValid(email)) {
+		throw errorCodes.INVALID_EMAIL
+	} else return true;
+}
+
+const passwordShouldBeValid = (password) => {
+	if (!passwordIsValid(password)) {
+		throw errorCodes.INVALID_PASSWORD;
+	} else return true;
+}
+
 
 const userShouldExist = (user) => {
 	if (!userExists(user)) {
@@ -69,5 +91,8 @@ module.exports = {
 	userShouldExist,
 	givenFilePathShouldExist,
 	recipientsShouldBeValid,
-	clientShouldBeARecipient
+	clientShouldBeARecipient,
+	usernameCanNotBeOccupied,
+	emailShouldBeValid,
+	passwordShouldBeValid
 }

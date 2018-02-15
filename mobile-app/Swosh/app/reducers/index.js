@@ -4,5 +4,5 @@ import createUser from './createUserReducer';
 
 export default combineReducers({
   navigation,
-  createUser
+  user: createUser
 });

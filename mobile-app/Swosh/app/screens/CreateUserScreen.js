@@ -6,15 +6,16 @@ import colors from '../constants/colors';
 import { FormLabel, FormInput } from 'react-native-elements'
 import { createUser } from '../actions'
 import Button from 'apsl-react-native-button'
+import knownErrors from '../constants/knownResponseErrors';
 
 class CreateUserScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      username: 'kristofferSNok',
-      password: 'hepphopp123',
-      email: 'tswt@test.se',
+      username: '',
+      password: '',
+      email: 'email@test.se',
       usernameColor: colors.primaryColor,
       passwordColor: colors.primaryColor,
       emailColor: colors.primaryColor
@@ -22,16 +23,37 @@ class CreateUserScreen extends React.Component {
     this.submit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(_) {
+    this.removeAllErrors();
+    console.log('mount', this.props.user.error);
+    console.log('props', this.props.user);
+      if (this.props.user.error)
+        this.addPossibleErrors();
+    }
+
+  addPossibleErrors() {
+    console.log(this.props.user.errorType);
+    switch (this.props.user.errorType) {
+      case knownErrors.USERNAME_ALREADY_TAKEN:
+        this.setError('usernameColor');
+        break;
+      case knownErrors.INVALID_PASSWORD:
+        this.setError('passwordColor');
+        break;
+      case knownErrors.INVALID_EMAIL:
+        this.setError('emailColor');
+        break;
+    }
+  }
+
   onSubmit() {
     if (this.checkIfFormHasAllInput()) {
-      console.log('has values', this.props);
       this.removeAllErrors();
       userData = {
         username: this.state.username,
         password: this.state.password,
         email: this.state.email
       };
-      console.log('now create', userData);
       this.props.createUser(userData);
     } else console.log('wrong');
   }
@@ -55,6 +77,7 @@ class CreateUserScreen extends React.Component {
   }
 
   setError(colorState) {
+    console.log('error', colorState);
     this.setState({[colorState]: colors.error});
   }
 
@@ -66,7 +89,7 @@ class CreateUserScreen extends React.Component {
     });
   }
 
-  render() {
+  render() { 
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <View style={styles.createUserContainer}>
@@ -115,9 +138,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
   return {
-    noting: 'nothing',
+    user: state.user,
   }
 }
 

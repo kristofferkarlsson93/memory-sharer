@@ -3,7 +3,8 @@ import { createUserActions } from '../actions/actionTypes';
 const initialState = {
   creatingUser: false,
   error: false,
-  errorData: {}
+  errorType: '',
+  guid: ''
 };
 
 export default (state = initialState, action) => {
@@ -26,7 +27,7 @@ export default (state = initialState, action) => {
         ...state,
         creatingUser: false,
         error: true,
-        errorData: action.error
+        errorType: action.error
       }
     default: 
       return state;

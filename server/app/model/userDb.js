@@ -7,6 +7,10 @@ const addNewUser = async(data) => {
 	return returnedData;
 }
 
+const addUser = async(userData) => {
+	return await usersRef.push(userData);
+}
+
 const userNameExists = async(userName) => {
 	let result = false;
 	await usersRef.orderByChild("userName").equalTo(userName).once("value", snapshot => {
@@ -50,6 +54,12 @@ const getUserByGuid = (userGuid) => {
 	});
 }
 
+const getUserByUsername = (username) => {
+	return new Promise( resolve => {
+		usersRef.orderByChild('username').equalTo(username).once('value', snapshot => resolve(snapshot.val()));
+	})
+}
+
 
 const getContactsForUser = (user) => {
 	return new Promise( (resolve, reject) => {
@@ -61,6 +71,8 @@ const getContactsForUser = (user) => {
 
 module.exports = {
 	addNewUser,
+	addUser,
+	getUserByUsername,
 	userNameExists,
 	userIdExists,
 	userGuidExistsAsync,

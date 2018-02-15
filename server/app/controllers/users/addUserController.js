@@ -1,51 +1,41 @@
-'use strict';
-const controllerHelper = require('../../helpers/controllerHelper');
-const {User} = require('../../objects/user');
-const userPersister = require('../../model/persisters/userPersister');
 const userGetter = require('../../model/getters/userGetter');
+const userPersister = require('../../model/persisters/userPersister');
+const ruleAssembler = require('../../model/rules/ruleAssembler');
+const isKnownError = require('../../helpers/errorHandlingHelper').isKnownError;
+const errors = require('../../constants/errorCodes');
+const controllerHelper = require('../../helpers/controllerHelper');
+const passwordHelper = require('../../helpers/passwordHelper');
+const guidCreator = require('../../helpers/guidCreator');
+
+const invoke = async (postData) => {
+  const { 
+    username,
+    password,
+    email,
+  } = postData;
+
+  if (!username || !password || ! email) {
+    return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);
+  }
+  
+  const possibleEarlierUser = await userGetter.getUserByUsername(username);
+
+  try {
+    ruleAssembler.usernameCanNotBeOccupied(possibleEarlierUser);
+    ruleAssembler.emailShouldBeValid(email);
+    ruleAssembler.passwordShouldBeValid(password);
+  } catch (error) {
+    if (isKnownError(error)) {
+      return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
+    } else throw error;
+  }
+  const hashedPassword = await passwordHelper.hashPassword(password);
+  const guid = guidCreator();
+  userPersister.addUser(guid, username, email, hashedPassword);
+  console.log('sending stuff back', guid);
+  return controllerHelper.successResponse(200, {guid: guid});
 
 
-const invoke = async (data) => {
-	const user = new User(data);
-	try {
-		if (user.getUserName && user.getGuid) {
-			const evaluation = await _evaluateUserExistence(user);
-			const userNameExists = evaluation[0];
-			const guidExists = evaluation[1];
-
-			if (userNameExists) {
-				throw 'USER_NAME_ALREADY_TAKEN'
-			}
-			if (guidExists || user.getGuid().length < 10) {
-				throw 'INVALID_GUID';
-			}
-		} else {
-			throw 'MISSING_PARAMETER';
-		} 
-	} catch (exception) {
-		return _handleExceptions(exception);
-	}
-	const responseData = _addUser(user);
-	return responseData;
 }
-
-const _evaluateUserExistence = (user) => {
-	return Promise.all([
-		userGetter.userNameExistsInDb(user.getUserName()), 
-		userGetter.userIdExistsInDb(user.getGuid())
-	]);
-}
-
-const _addUser = async (user) => {
-	const returnedData = await userPersister.addNewUser(user);
-	user.setId(returnedData.key);
-	return controllerHelper.successResponse(200, user);
-}
-
-const _handleExceptions = (exception) => {
-	return controllerHelper.errorResponse(400, exception);
-}
-
-
 
 module.exports = {invoke};

@@ -27,10 +27,15 @@ const getUserByGuid = (userGuid) => {
 	});
 }
 
+const getUserByUsername = (username) => {
+	return db.getUserByUsername(username).then(userData => userData ? fireBaseParser.parseDataToUser(userData) : '')
+}
+
 
 module.exports = {
 	userIdExistsInDb,
 	userNameExistsInDb,
 	userGuidExists,
-	getUserByGuid
+	getUserByGuid,
+	getUserByUsername
 }

@@ -4,13 +4,22 @@ const { Memory } = require('../objects/Memory');
 const parseDataToUser = (data) => {
   const root = _extractRelevantData(data);
   const parsedData = {
-    userName: root.userName,
+    userName: root.username,
     guid: root.guid,
     id: _getFireBaseIdFromData(data),
     contacts: root.contacts
   };
   return new User(parsedData);
 } 
+
+const parseDataToCreateUser = (guid, username, email, password) => {
+  return {
+    guid,
+    username,
+    email,
+    password
+  }
+}
 
 const parseForAddingContactToUser = (user, contact) => {
   const contactGuid = contact.getGuid();
@@ -66,6 +75,7 @@ const _extractRelevantData = (data) => {
 
 module.exports = {
   parseDataToUser,
+  parseDataToCreateUser,
   parseForAddingContactToUser,
   parseListOfContactGuids,
   parseForAddingMemory,
