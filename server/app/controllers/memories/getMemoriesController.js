@@ -15,7 +15,6 @@ const invoke = async(data) => {
     ruleAssembler.givenFilePathShouldExist(memory.getFilePath());
   } catch (error) {
     if (isKnownError(error)) {
-      console.log(error);
       return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
     } else throw error;
   }

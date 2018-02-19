@@ -5,10 +5,8 @@ const hashPassword = async (password) => {
   return await bcrypt.hash(password, passwordConfig.saltRounds).then(hashedPassword => hashedPassword);
 }
 
-
-
-const compareHashedAndPlainPassword = (hashedPassword, plainPassword)=> {
-  return bcrypt.compare(plainPassword, hash, (error, result) => result);
+const compareHashedAndPlainPassword = (hashedPassword, plainPassword) => {
+  return bcrypt.compareSync(plainPassword, hashedPassword);
 }
 
 module.exports = {

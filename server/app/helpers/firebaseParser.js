@@ -7,6 +7,7 @@ const parseDataToUser = (data) => {
     userName: root.username,
     guid: root.guid,
     id: _getFireBaseIdFromData(data),
+    password: root.password,
     contacts: root.contacts
   };
   return new User(parsedData);

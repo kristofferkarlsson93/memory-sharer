@@ -6,7 +6,11 @@ exports.User = class {
 	}
 
 	getUserName() {
-		return this.user.userName;
+		return this.user.username;
+	}
+
+	getPassword() {
+		return this.user.password;
 	}
 
 	getGuid() {

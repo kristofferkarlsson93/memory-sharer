@@ -18,7 +18,6 @@ const invoke = async (bodyData, fileData) => {
   try {
     applyRules(sender, recipients, fileData.path);
   } catch(error) {
-    console.log('ERROR', error);
     if (isKnownError(error)) {
       if (hasSpecialTreatment(error)) {
         data.recipients = getOkGuids(recipientsGuids, recipients);

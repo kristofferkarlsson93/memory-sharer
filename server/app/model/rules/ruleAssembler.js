@@ -8,6 +8,8 @@ const clientIsARecipient = require('./simpleRules/clientShouldBeARecipient');
 const usernameShouldNotBeTaken = require('./simpleRules/usernameCanNotBeOccupied');
 const emailIsValid = require('./simpleRules/emailShouldBeValid');
 const passwordIsValid = require('./simpleRules/passwordShouldBeValid');
+const passwordsMatch = require('./simpleRules/passwordsShouldMatch');
+const clientIdIsKnown = require('./simpleRules/clientIdShouldBeKnown');
 
 const usernameCanNotBeOccupied = (possibleEarlierUser) => {
 	if (!usernameShouldNotBeTaken(possibleEarlierUser)) {
@@ -21,12 +23,24 @@ const emailShouldBeValid = (email) => {
 	} else return true;
 }
 
+const clientIdShouldBeKnown = (clientId) => {
+	if (!clientIdIsKnown(clientId)) {
+		console.error('Invalid clientId - ' + clientId + ' - trying to use API');
+		throw errorCodes.INVALID_CLIENT_ID;
+	} else return true;
+}
+
 const passwordShouldBeValid = (password) => {
 	if (!passwordIsValid(password)) {
 		throw errorCodes.INVALID_PASSWORD;
 	} else return true;
 }
 
+const passwordsShouldMatch = (receivedPassword, storedPassword) => {
+	if (!passwordsMatch(receivedPassword, storedPassword)) {
+		throw errorCodes.LOGIN_FAILED;
+	} else return true;
+} 
 
 const userShouldExist = (user) => {
 	if (!userExists(user)) {
@@ -94,5 +108,7 @@ module.exports = {
 	clientShouldBeARecipient,
 	usernameCanNotBeOccupied,
 	emailShouldBeValid,
-	passwordShouldBeValid
+	passwordShouldBeValid,
+	passwordsShouldMatch,
+	clientIdShouldBeKnown
 }

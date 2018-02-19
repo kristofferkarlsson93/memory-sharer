@@ -14,7 +14,7 @@ const invoke = async (postData) => {
     email,
   } = postData;
 
-  if (!username || !password || ! email) {
+  if (!username || !password || !email) {
     return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);
   }
   
@@ -29,10 +29,9 @@ const invoke = async (postData) => {
       return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
     } else throw error;
   }
-  const hashedPassword = await passwordHelper.hashPassword(password);
+  const hashedPassword = passwordHelper.hashPassword(password);
   const guid = guidCreator();
   userPersister.addUser(guid, username, email, hashedPassword);
-  console.log('sending stuff back', guid);
   return controllerHelper.successResponse(200, {guid: guid});
 
 

@@ -4,7 +4,6 @@ module.exports = (app, multerFileUpload) => {
   app.post('/memory', multerFileUpload.single('memory'), async(request, response) => {
     const addMemoryController = require('../controllers/memories/addMemoryController');
     const result = await addMemoryController.invoke(request.body, request.file);
-    console.log(result);
     response.status(result.status).send(result.body);
   });
 
