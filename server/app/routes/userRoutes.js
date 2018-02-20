@@ -1,4 +1,5 @@
 'use strict';
+const authHelper = require('../helpers/authHelper');
 
 module.exports = (app) => {
 
@@ -8,9 +9,9 @@ module.exports = (app) => {
 		response.status(result.status).send(result.body);
 	});
 
-	app.get('/user/:userGuid', async(request, response) => {
+	app.get('/user/', authHelper.verifyToken, async(request, response) => {
 		const getUserController = require('../controllers/users/getUserController');
-		const result = await getUserController.invoke(request.params);
+		const result = await getUserController.invoke(request.body);
 		response.status(result.status).send(result.body);
 	});
 

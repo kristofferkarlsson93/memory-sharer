@@ -12,9 +12,10 @@ const invoke = async (postData) => {
     username,
     password,
     email,
+    clientId
   } = postData;
 
-  if (!username || !password || !email) {
+  if (!username || !password || !email || !clientId) {
     return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);
   }
   
@@ -24,6 +25,7 @@ const invoke = async (postData) => {
     ruleAssembler.usernameCanNotBeOccupied(possibleEarlierUser);
     ruleAssembler.emailShouldBeValid(email);
     ruleAssembler.passwordShouldBeValid(password);
+    ruleAssembler.clientIdShouldBeKnown(clientId);
   } catch (error) {
     if (isKnownError(error)) {
       return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);

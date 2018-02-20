@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const passwordConfig = require('../configs/passwordConfig');
 
-const hashPassword = async (password) => {
-  return await bcrypt.hash(password, passwordConfig.saltRounds).then(hashedPassword => hashedPassword);
+const hashPassword = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(passwordConfig.saltRounds));
 }
 
 const compareHashedAndPlainPassword = (hashedPassword, plainPassword) => {

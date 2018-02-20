@@ -4,7 +4,7 @@ const { Memory } = require('../objects/Memory');
 const parseDataToUser = (data) => {
   const root = _extractRelevantData(data);
   const parsedData = {
-    userName: root.username,
+    username: root.username,
     guid: root.guid,
     id: _getFireBaseIdFromData(data),
     password: root.password,

@@ -49,10 +49,13 @@ exports.User = class {
 		return true;
 	}
 
-	getJsonForCreatingNewUser() {
+	getPublicJson() {
 		return {
-			guid: this.getGuid(),
-			userName: this.getUserName()
+			user: {
+				username: this.getUserName(),
+				guid: this.getGuid(),
+				id: this.getFirebaseId()
+			}
 		}
 	}
 }
