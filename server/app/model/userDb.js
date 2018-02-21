@@ -32,8 +32,5 @@ const getContactsForUser = (user) => {
 module.exports = {
 	addUser,
 	getUserByUsername,
-	userNameExists,
-	userIdExists,
-	userGuidExistsAsync,
 	getUserByGuid,
 }
