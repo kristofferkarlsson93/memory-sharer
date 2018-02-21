@@ -52,7 +52,6 @@ export default class MainScreen extends React.Component {
 
     });
 
-    //console.log(result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });

@@ -1,15 +1,27 @@
 import { createUserActions } from './actionTypes';
-import { addUser } from '../services/userService';
+import { addUserToServer } from '../services/userService';
 import { encryptString } from '../utils/passwordCryptator';
 import knownErrors from '../constants/knownResponseErrors';
+import { storeUser } from '../localStore/persister';
 
 
 export const createUser = (userDraft) => {
-  return (dispatch) => {
-    dispatch(creatingUser(userDraft));
-    addUser(userDraft)
-    .then(data => dispatch(createUserSuccess(data.guid)))
-    .catch(error => dispatch(createUserFailure(error)));
+  return async (dispatch) => {
+    try {
+      dispatch(creatingUser(userDraft));
+      const data = await addUserToServer(userDraft);
+      console.log('response sucess', data);
+      await storeUser({
+        username: userDraft.username,
+        password: userDraft.password,
+        email: userDraft.email
+      });
+      dispatch(createUserSuccess(data.guid));
+      
+    } catch(error) {
+      dispatch(createUserFailure(error));
+    }
+
   }
 }
 

@@ -1,11 +1,10 @@
 import config from '../config/config';
 
-export const addUser = (userObject) => {
+export const addUserToServer = (userObject) => {
   const { username, password, email } = userObject;
   if (!username || !password || !email) {
     throw 'Missing value when trying to create user';
   }
-  console.log('USER OBJEKT', userObject);
   const url = config.baseUrl + '/user/';
   const postData = {
     method: 'POST',
@@ -13,9 +12,13 @@ export const addUser = (userObject) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(userObject)
+    body: JSON.stringify({
+      username, 
+      password,
+      email,
+      clientId: config.clientId
+    })
   }
-  console.log('sending', userObject);
   return fetch(url, postData)
     .then(async response => {
       const json = await response.json()
@@ -24,11 +27,3 @@ export const addUser = (userObject) => {
       } else return json;
     })
   }
-
-const getFormDataToCreateUser = (userObject) => {
-  const formData = new FormData();
-  formData.append('username', userObject.username); 
-  formData.append('password', userObject.password); 
-  formData.append('email', userObject.email); 
-  return formData;
-}

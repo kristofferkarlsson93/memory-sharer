@@ -7,33 +7,38 @@ import { FormLabel, FormInput } from 'react-native-elements'
 import { createUser } from '../actions'
 import Button from 'apsl-react-native-button'
 import knownErrors from '../constants/knownResponseErrors';
+import { CheckBox } from 'react-native-elements'
+import LoadingScreen from './LoadingScreen';
 
 class CreateUserScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: 'KurtOlsson',
+      password: 'NissePIsKing',
       email: 'email@test.se',
+      keepLoggedIn: true,
       usernameColor: colors.primaryColor,
       passwordColor: colors.primaryColor,
-      emailColor: colors.primaryColor
+      emailColor: colors.primaryColor,
+      errorIsPut: false
     }
     this.submit = this.onSubmit.bind(this);
   }
 
-  componentWillReceiveProps(_) {
-    this.removeAllErrors();
-    console.log('mount', this.props.user.error);
-    console.log('props', this.props.user);
-      if (this.props.user.error)
-        this.addPossibleErrors();
-    }
+  componentDidUpdate(prevProps, prevState) {
+    //this.removeAllErrors();
+    console.log('props.error', this.props.error);
+    console.log('props.errorType', this.props.errorType);
+    if (this.props.error && !prevState.errorIsPut) {
+      this.addPossibleErrors();
+    } 
+  }
 
   addPossibleErrors() {
-    console.log(this.props.user.errorType);
-    switch (this.props.user.errorType) {
+    console.log('ERROR', this.props.errorType);
+    switch(this.props.errorType) {
       case knownErrors.USERNAME_ALREADY_TAKEN:
         this.setError('usernameColor');
         break;
@@ -52,7 +57,8 @@ class CreateUserScreen extends React.Component {
       userData = {
         username: this.state.username,
         password: this.state.password,
-        email: this.state.email
+        email: this.state.email,
+        keepLoggedIn: this.state.keepLoggedIn
       };
       this.props.createUser(userData);
     } else console.log('wrong');
@@ -77,8 +83,8 @@ class CreateUserScreen extends React.Component {
   }
 
   setError(colorState) {
-    console.log('error', colorState);
-    this.setState({[colorState]: colors.error});
+    console.log('errorObject', colorState);
+    this.setState({[colorState]: colors.error, errorIsPut: true});
   }
 
   removeAllErrors() {
@@ -89,8 +95,12 @@ class CreateUserScreen extends React.Component {
     });
   }
 
-  render() { 
-    return (
+  render() {
+    console.log('RENDER');
+    if (this.props.user.creatingUser) {
+      return (<LoadingScreen/>)
+    } 
+    else return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <View style={styles.createUserContainer}>
           <Icon size={50} color={colors.primaryColor} name="person" />
@@ -122,6 +132,17 @@ class CreateUserScreen extends React.Component {
               onChangeText={ input => this.setState({email: input}) }  
               onSubmitEditing={ _ => this.submit() }
             />
+            <CheckBox
+              style={{backgroundColor: '#fff', marginBottom: 20}}
+              textStyle={{color: colors.primaryColor, fontSize: 20, fontWeight: 'normal'}}
+              iconType={'material'}
+              checkedIcon={'check-box'}
+              checkedColor={colors.primaryColor}
+              uncheckedIcon={'check-box-outline-blank'}
+              title='Håll mig inloggad'
+              checked={this.state.keepLoggedIn}
+              onPress={() => this.setState({keepLoggedIn: !this.state.keepLoggedIn})}
+            />
           <Button style={styles.button} textStyle={{fontSize: 18}} onPress={ _ => this.submit()}>
             <Text style={{color: '#fff', fontSize: 20}}>Skapa användare</Text>
           </Button>
@@ -141,6 +162,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    isCreatingUser: state.user.creatingUser,
+    errorType: state.user.errorType,
+    error: state.user.error
   }
 }
 
