@@ -4,10 +4,11 @@ const ruleAssembler = require('../../model/rules/ruleAssembler');
 const controllerHelper = require('../../helpers/controllerHelper');
 
 const invoke = async (data) => {
-  const userGuid = data.userGuid;
+  const userGuid = data.guid;
   const contactGuids = await contactGetter.getContactsByGuid(userGuid);
   const contacts = await getFullyQualifiedContacts(contactGuids);
-  return controllerHelper.successResponse(200, contacts);
+  const returnableContacts = contacts.map(contact => contact.getPublicJson())
+  return controllerHelper.successResponse(200, returnableContacts);
 }
 
 const getFullyQualifiedContacts = (contactGuids) => {

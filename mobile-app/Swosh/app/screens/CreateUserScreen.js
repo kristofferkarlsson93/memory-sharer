@@ -9,6 +9,8 @@ import Button from 'apsl-react-native-button'
 import knownErrors from '../constants/knownResponseErrors';
 import { CheckBox } from 'react-native-elements'
 import LoadingScreen from './LoadingScreen';
+import Toast, {DURATION} from 'react-native-easy-toast'
+import { retrieveUser } from '../localStore/retriever';
 
 class CreateUserScreen extends React.Component {
 
@@ -27,10 +29,10 @@ class CreateUserScreen extends React.Component {
     this.submit = this.onSubmit.bind(this);
   }
 
+  
+
   componentDidUpdate(prevProps, prevState) {
     //this.removeAllErrors();
-    console.log('props.error', this.props.error);
-    console.log('props.errorType', this.props.errorType);
     if (this.props.error && !prevState.errorIsPut) {
       this.addPossibleErrors();
     } 
@@ -40,13 +42,14 @@ class CreateUserScreen extends React.Component {
     console.log('ERROR', this.props.errorType);
     switch(this.props.errorType) {
       case knownErrors.USERNAME_ALREADY_TAKEN:
-        this.setError('usernameColor');
+        console.log('in correct err');
+        this.setError('usernameColor', 'Användarnamn upptaget');
         break;
       case knownErrors.INVALID_PASSWORD:
-        this.setError('passwordColor');
+        this.setError('passwordColor', 'Lösenordet måste ha minst 8 tecken');
         break;
       case knownErrors.INVALID_EMAIL:
-        this.setError('emailColor');
+        this.setError('emailColor', 'Ogiltig epost');
         break;
     }
   }
@@ -68,22 +71,22 @@ class CreateUserScreen extends React.Component {
     const {username, password, email} =  this.state;
     let hasAllInput = true;
     if (!username) {
-      this.setError('usernameColor');
+      this.setError('usernameColor', 'användarnamn krävs');
       hasAllInput = false;
     } 
     if (!password) {
-      this.setError('passwordColor');      
+      this.setError('passwordColor', 'Lösenord krävs');      
       hasAllInput = false
     } 
     if (!email) {
-      this.setError('emailColor');
+      this.setError('emailColor', 'Email krävs');
       hasAllInput = false;
     }
     return hasAllInput;
   }
 
-  setError(colorState) {
-    console.log('errorObject', colorState);
+  setError(colorState, displayMessage) {
+    this.refs.toast.show(displayMessage, DURATION.LENGTH_LONG);    
     this.setState({[colorState]: colors.error, errorIsPut: true});
   }
 
@@ -102,6 +105,7 @@ class CreateUserScreen extends React.Component {
     } 
     else return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
+       
         <View style={styles.createUserContainer}>
           <Icon size={50} color={colors.primaryColor} name="person" />
           <View style={styles.formContainer}>
@@ -148,6 +152,16 @@ class CreateUserScreen extends React.Component {
           </Button>
           </View>
         </View>
+        <Toast
+          ref="toast"
+          style={{backgroundColor: colors.error, width: 300, marginBottom: 15, }}
+          position='top'
+          positionValue={15}
+          fadeInDuration={750}
+          fadeOutDuration={1000}
+          opacity={0.8}
+          textStyle={{color: '#fff', fontSize: 20, opacity: 1}}
+        />
       </KeyboardAvoidingView>
     );
   }

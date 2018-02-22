@@ -4,3 +4,9 @@ export const createUserActions = {
     CREATE_USER_SUCCESS: 'CREATE_USER_SUCCESS',
     CREATE_USER_FAILURE: 'CREATE_USER_FAILURE',
   };
+
+  export const loginUserActions = {
+    LOGIN_USER: 'LOGIN_USER',
+    LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS',
+    LOGIN_USER_FAILURE: 'LOGIN_USER_FAILURE',
+  }

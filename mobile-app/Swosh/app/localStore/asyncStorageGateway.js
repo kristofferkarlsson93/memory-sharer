@@ -9,9 +9,9 @@ export const saveObject = (key, data) => {
 
 export const getObject = async (key) => {
   try {
-    const data = AsyncStorage.getItem(key);
-    return JSON.parse(user);
+    const data = await AsyncStorage.getItem(key);
+    return JSON.parse(data);
   } catch (error) {
-    throw('No key with name: - ' + key + ' - exists' );
+    return false;
   }
 }

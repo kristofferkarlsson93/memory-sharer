@@ -9,7 +9,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log('ACTION', action);
   switch (action.type) {
     case createUserActions.CREATE_USER:
       return {

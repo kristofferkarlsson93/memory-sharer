@@ -12,12 +12,13 @@ const isKnownError = require('../../helpers/errorHandlingHelper').isKnownError;
 const invoke = async(data) => {
 
 	if (dataMissingParameter(data)) {
-		return controllerHelper.errorResponse(400, errors.MISSING_PARAMETER);
+		return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);
 	}
-	const [user, contact] = await getWantedUsers(data.userGuid, data.contactGuid);
+
+	const [user, contact] = await getWantedUsers(data.guid, data.contactGuid);
+
 	try {
 		ruleAssembler.userAndContactShouldExist(user, contact);
-
 		const usersContacts = await contactGetter.getContactsByGuid(user.getGuid());
 		user.setContacts(usersContacts);
 		ruleAssembler.usersShouldNotKnowOfNewContact(user, contact);
@@ -26,9 +27,10 @@ const invoke = async(data) => {
 			return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
 		} else throw new Error(error);
 	}
+
 	const contactList = user.getContacts();
 	contactList.push(contact.getGuid());	
-
+	
 	await contactsPersister.addContactToUser(user, contact);
 	return controllerHelper.successResponse(200, {contactList});
 }
@@ -41,7 +43,8 @@ const getWantedUsers = (activeUsersGuid, contactToAddsGuid) => {
 }
 
 const dataMissingParameter = (data) => {
-	return !(data.userGuid && data.contactGuid);
+	console.log(data);
+	return !(data.guid && data.contactGuid);
 }
 
 module.exports = {
