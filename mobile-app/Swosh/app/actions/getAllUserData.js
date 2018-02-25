@@ -7,7 +7,8 @@ export const getAllUserData = (token) => {
     dispatch(gettingData());
     const userSummary = await getUserSummary(token);
     console.log('userSummary', userSummary);
-    dispatch(summaryIsFetched(userSummary))
+    dispatch(summaryIsFetched(userSummary));
+    
   }
 }
 

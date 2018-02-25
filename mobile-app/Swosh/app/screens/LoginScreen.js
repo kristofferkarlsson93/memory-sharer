@@ -16,9 +16,8 @@ class LoginScreen extends React.Component {
 constructor(props) {
   super(props);
   this.state = {
-    username: 'KurtOlsson',
-    password: 'NissePIsKing',
-    email: 'email@test.se',
+    username: 'Akk',
+    password: 'KrillesLosenord',
     keepLoggedIn: true,
     usernameColor: colors.primaryColor,
     passwordColor: colors.primaryColor,
@@ -33,7 +32,7 @@ checkIfAUserExistsInStore() {
   retrieveUser()
   .then(user => {
     if (user) {
-      this.props.loginUser(user);
+      //this.props.loginUser(user);
     }
   })
 }

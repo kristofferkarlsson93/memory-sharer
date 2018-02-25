@@ -1,15 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,  Button, Image } from 'react-native';
+import { connect } from 'react-redux';
 import RoundedButton from '../components/RoundedButton';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../constants/colors';
 import { ImagePicker } from 'expo';
+import { getAllUserData } from '../actions';
 
-export default class MainScreen extends React.Component {
+class MainScreen extends React.Component {
 
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       image: null,
     };
+    console.log(this.props);
+    this.props.getUserData(this.props.token);
+  }
   
     render() {
       let { image } = this.state;
@@ -59,6 +66,21 @@ export default class MainScreen extends React.Component {
   };
 }
 
+const mapStateToProps = (state) => {
+  //console.log('STATE', state);
+  return {
+    token: state.logIn.token
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserData: (token) => dispatch(getAllUserData(token))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
 
 const styles = StyleSheet.create({
   container: {

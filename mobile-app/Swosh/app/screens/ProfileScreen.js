@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { getAllUserData } from '../actions';
 /*
 TODO: 
   Hämta användardata
@@ -15,15 +14,9 @@ TODO:
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.getData();
-  }
-
-  getData() {
-    this.props.getUserData(this.props.token);
   }
 
   render() {
-    console.log(this.props.userDetails);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -39,13 +32,11 @@ const mapStateToProps = (state) => {
   return {
    user: state.user,
    userDetails: state.userDetails.summary,
-   token: state.logIn.token
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUserData: (token) => dispatch(getAllUserData(token))
   };
 }
 
