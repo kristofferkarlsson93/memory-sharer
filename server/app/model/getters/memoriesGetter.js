@@ -8,6 +8,26 @@ const getSingleMemoryByGuid = (guid) => {
 }
 const getAllMemoriesForUser = (guid) => {
   return db.getAllMemoriesForUser(guid)
+    .then(memories => {
+      if (memories) {
+        return Object.keys(memories).map(memoryGuid => new Memory({
+          guid: memoryGuid, 
+          filePath: memories[memoryGuid].filePath,
+          message: memories[memoryGuid].message,
+          recipients: memories[memoryGuid].recipients,
+          sender: memories[memoryGuid].sender
+        }));
+      } else return [];
+    });
+}
+
+module.exports = {
+  getSingleMemoryByGuid,
+  getAllMemoriesForUser
+}
+
+
+/*return db.getAllMemoriesForUser(guid)
     .then(result => result ? Object.keys(result) : []
       .map(memory => memory ? new Memory({
         guid: memory,
@@ -15,10 +35,4 @@ const getAllMemoriesForUser = (guid) => {
         message: result[memory].message,
         recipients: result[memory].recipients,
         sender: result[memory].sender
-      }) : null));
-}
-
-module.exports = {
-  getSingleMemoryByGuid,
-  getAllMemoriesForUser
-}
+      }) : null));*/

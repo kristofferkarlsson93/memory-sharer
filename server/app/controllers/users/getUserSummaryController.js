@@ -12,7 +12,7 @@ const invoke = async(data) => {
     return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);
   }
   const [memories, contacts, user] = await Promise.all([
-    memoriesGetter.getAllMemoriesForUser(data.guid).then(memories => memories.map(memory => memory.memory.guid)),
+    memoriesGetter.getAllMemoriesForUser(data.guid).then(memories => memories.map(memory => memory.getGuid())),
     contactsGetter.getContactsByGuid(data.guid),
     userGetter.getUserByGuid(data.guid) 
   ]);

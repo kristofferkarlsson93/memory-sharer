@@ -9,6 +9,10 @@ exports.Memory = class {
     return this.memory.filePath;
   }
 
+  getGuid() {
+    return this.memory.guid;
+  }
+
   getMessage() {
     return this.memory.message;
   }
