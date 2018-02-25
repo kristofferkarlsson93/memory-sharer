@@ -7,7 +7,6 @@ export const loginUser = (userObject) => {
     try {
       dispatch(loggingInUser(userObject));
       const token = await loginUserOnAPIByUsername(userObject);
-      console.log('response sucess', token);
       storeUser({
         username: userObject.username,
         password: userObject.password,
@@ -16,6 +15,7 @@ export const loginUser = (userObject) => {
       dispatch(loginUserSuccess(token));
       
     } catch(error) {
+      console.log('action error', error);
       dispatch(loginUserFailure(error));
     }
   }

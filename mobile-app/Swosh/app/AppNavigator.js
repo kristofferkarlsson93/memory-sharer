@@ -9,27 +9,31 @@ import colors from './constants/colors';
 import LoadingScreen from './screens/LoadingScreen';
 
 const Navigator = TabNavigator({
+
+  LoadingScreen: {
+    screen: LoadingScreen,
+    navigationOptions: {
+      tabBarLabel: 'Placeholder',
+      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="bookmark" />),
+      header: null
+    },
+  },  
   HomeScreen: {
     screen: HomeScreen,
     navigationOptions: {
       tabBarLabel: 'Swosha',
-      tabBarIcon: () => (<Icon size={24} color="white" name="play-arrow" />)
+      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="play-arrow" />),
+      header: null
     },
   },
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: 'Jag',
-      tabBarIcon: () => (<Icon size={24} color="white" name="person" />)
+      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="person" />),
+      header: null      
     },
   },
-  LoadingScreen: {
-    screen: LoadingScreen,
-    navigationOptions: {
-      tabBarLabel: 'Swosha',
-      tabBarIcon: () => (<Icon size={24} color="white" name="play-arrow" />)
-    },
-  }
 
 }, {
   tabBarComponent: NavigationComponent,
@@ -41,17 +45,24 @@ const Navigator = TabNavigator({
     bottomNavigationOptions: {
       labelColor: 'white',
       rippleColor: 'white',
+      elevation: 8,
       tabs: {
         HomeScreen: {
-          barBackgroundColor: colors.primaryColor
+          barBackgroundColor: '#fff',
+          activeLabelColor: colors.primaryColor          
         },
         ProfileScreen: {
-          barBackgroundColor: '#B2DFDB'         
-        }
+          barBackgroundColor: '#fff',
+          activeLabelColor: colors.primaryColor
+        },
+        LoadingScreen: {
+          barBackgroundColor: '#fff',
+          activeLabelColor: colors.primaryColor          
+        },
       }
     }
   },
-  //initialRouteName: 'HomeScreen',
+  initialRouteName: 'ProfileScreen',
 });
 
 

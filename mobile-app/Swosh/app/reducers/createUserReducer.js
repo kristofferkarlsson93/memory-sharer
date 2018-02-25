@@ -28,7 +28,6 @@ export default (state = initialState, action) => {
         action: action.type
       }
     case createUserActions.CREATE_USER_FAILURE:
-      console.log('This should show when error');
       return {
         ...state,
         creatingUser: false,

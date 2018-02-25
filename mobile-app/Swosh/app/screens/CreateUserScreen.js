@@ -39,10 +39,8 @@ class CreateUserScreen extends React.Component {
   }
 
   addPossibleErrors() {
-    console.log('ERROR', this.props.errorType);
     switch(this.props.errorType) {
       case knownErrors.USERNAME_ALREADY_TAKEN:
-        console.log('in correct err');
         this.setError('usernameColor', 'Användarnamn upptaget');
         break;
       case knownErrors.INVALID_PASSWORD:
@@ -71,7 +69,7 @@ class CreateUserScreen extends React.Component {
     const {username, password, email} =  this.state;
     let hasAllInput = true;
     if (!username) {
-      this.setError('usernameColor', 'användarnamn krävs');
+      this.setError('usernameColor', 'Användarnamn krävs');
       hasAllInput = false;
     } 
     if (!password) {
@@ -99,7 +97,6 @@ class CreateUserScreen extends React.Component {
   }
 
   render() {
-    console.log('RENDER');
     if (this.props.user.creatingUser) {
       return (<LoadingScreen/>)
     } 
@@ -187,7 +184,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateUserScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -224,13 +221,5 @@ const styles = StyleSheet.create({
     marginLeft: 17
   }
 });
-/**
- * 
- * <RaisedTextButton 
-            title='Skapa användare'
-            color='transparent'
-            titleColor='#fff'
-            style={styles.button}
-            onPress={ _ => this.submit() }
-          />
- */
+
+//https://github.com/crazycodeboy/react-native-easy-toast

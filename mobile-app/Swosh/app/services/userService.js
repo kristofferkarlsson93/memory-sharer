@@ -1,4 +1,23 @@
 import config from '../config/config';
+import { isKnownError } from '../utils/errorUtils';
+
+
+export const getUserSummary = async(token) => {
+  if (!token) {
+    throw 'Missing token when trying to get user summary';
+  }
+  const url = config.baseUrl + '/userSummary';
+  const fetchData = {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  }
+  const response = await fetch(url, fetchData);
+  const json = await response.json();
+  return json;
+}
+
 
 export const addUserToServer = (userObject) => {
   const { username, password, email } = userObject;
@@ -41,11 +60,11 @@ export const loginUserOnAPIByUsername = async(user) => {
     })
   };
   const response = await fetch(url, postData);
-  const json = response.json();
+  const json = await response.json();
   if (!response.ok) {
     throw json.error.code;
   }
-  return json;
+  return json.token;
 }
 
   const getPostHeaders = () => {

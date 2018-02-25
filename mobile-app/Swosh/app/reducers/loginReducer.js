@@ -10,7 +10,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  console.log('ACTION', action);
   switch (action.type) {
     case loginUserActions.LOGIN_USER:
       return {
@@ -29,7 +28,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: true,
-        errorType: action.error
+        errorType: action.error,
+        loggingIn: false,        
       }
     default: 
     return state;

@@ -10,7 +10,6 @@ export const createUser = (userDraft) => {
     try {
       dispatch(creatingUser(userDraft));
       const data = await addUserToServer(userDraft);
-      console.log('response sucess', data);
       await storeUser({
         username: userDraft.username,
         password: userDraft.password,
