@@ -12,7 +12,16 @@ const getSingleMemoryByGuid = (memoryGuid) => {
 	});
 }
 
+const getAllMemoriesForUser = (userGuid) => {
+  return new Promise( (resolve, reject) => {
+		memoriesRef.orderByChild('sender').equalTo(userGuid).on('value', snapshot => {
+			resolve(snapshot.val());
+		});
+	});
+}
+
 module.exports = {
   addMemory,
-  getSingleMemoryByGuid
+  getSingleMemoryByGuid,
+  getAllMemoriesForUser
 }

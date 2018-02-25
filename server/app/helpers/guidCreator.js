@@ -2,9 +2,9 @@ const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const digits = '0123456789';
 const symbols = [alpha, digits];
 
-module.exports = () => {
-  let guid = '';
-  for (let i = 0; i <= 32; i++ ) {
+module.exports = (username) => {
+  let guid = username;
+  for (let i = 0; i <= 10; i++ ) {
     const firstLevel = getRandomInt(2)
     const secondLevel = getRandomInt(symbols[firstLevel].length-1);
     guid += symbols[firstLevel][secondLevel];

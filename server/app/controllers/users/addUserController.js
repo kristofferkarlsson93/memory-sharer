@@ -32,7 +32,7 @@ const invoke = async (postData) => {
     } else throw error;
   }
   const hashedPassword = passwordHelper.hashPassword(password);
-  const guid = guidCreator();
+  const guid = guidCreator(username);
   userPersister.addUser(guid, username, email, hashedPassword);
   return controllerHelper.successResponse(200, {guid: guid});
 

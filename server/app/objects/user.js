@@ -49,12 +49,17 @@ exports.User = class {
 		return true;
 	}
 
+	getEmail() {
+		return this.user.email;
+	}
+
 	getPublicJson() {
 		return {
 			user: {
 				username: this.getUserName(),
 				guid: this.getGuid(),
-				id: this.getFirebaseId()
+				id: this.getFirebaseId(),
+				email: this.getEmail()
 			}
 		}
 	}

@@ -15,6 +15,12 @@ module.exports = (app) => {
 		response.status(result.status).send(result.body);
 	});
 
+	app.get('/userSummary', authHelper.verifyToken, async(request, response) => {
+		const getUserSummaryController = require('../controllers/users/getUserSummaryController');
+		const result = await getUserSummaryController.invoke(request.body);
+		response.status(result.status).send(result.body);
+	});
+
 }
 
 //https://www.youtube.com/watch?v=srPXMt1Q0nY

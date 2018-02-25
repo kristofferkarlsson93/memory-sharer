@@ -7,8 +7,8 @@ const parseDataToUser = (data) => {
     username: root.username,
     guid: root.guid,
     id: _getFireBaseIdFromData(data),
+    email: root.email,
     password: root.password,
-    contacts: root.contacts
   };
   return new User(parsedData);
 } 
@@ -53,6 +53,7 @@ const parseForAddingMemory = (data) => {
 }
 
 const parseMemoryDataToMemoryObject = (firebaseMemoryData) => {
+  console.log(firebaseMemoryData);
   if (firebaseMemoryData) {
     const relevantData = _extractRelevantData(firebaseMemoryData);
     return new Memory({
