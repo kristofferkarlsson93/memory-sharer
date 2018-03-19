@@ -32,7 +32,7 @@ checkIfAUserExistsInStore() {
   retrieveUser()
   .then(user => {
     if (user) {
-      //this.props.loginUser(user);
+      this.props.loginUser(user);
     }
   })
 }
