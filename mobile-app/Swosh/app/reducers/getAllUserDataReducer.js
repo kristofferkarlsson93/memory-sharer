@@ -19,10 +19,12 @@ export default (state = initialState, action) => {
         ...state,
         isFetchingUserData: true,
       }
-    case getAllUserDataActions.SUMMARY_IS_FETCHED:
+    case getAllUserDataActions.USER_DATA_IS_FETCHED:
       return {
         ...state,
-        summary: action.summary,
+        userInfo: action.data.user,
+        contacts: action.data.contacts,
+        memories: action.data.memories,
         hasFetchedSummary: true,
         isFetchingMemories: true,
       }

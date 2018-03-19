@@ -3,18 +3,19 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import { TabNavigator } from 'react-navigation';
 import HomeScreen from './screens/MainScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import MemoriesScreen from './screens/MemoriesScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from './constants/colors';
 import LoadingScreen from './screens/LoadingScreen';
+import ContactScreen from './screens/ContactsScreen'
 
 const Navigator = TabNavigator({
 
-  LoadingScreen: {
-    screen: LoadingScreen,
+  ContactScreen: {
+    screen: ContactScreen,
     navigationOptions: {
-      tabBarLabel: 'Placeholder',
-      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="bookmark" />),
+      tabBarLabel: 'Kontakter',
+      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="group" />),
       header: null
     },
   },  
@@ -26,15 +27,14 @@ const Navigator = TabNavigator({
       header: null
     },
   },
-  ProfileScreen: {
-    screen: ProfileScreen,
+  MemoriesScreen: {
+    screen: MemoriesScreen,
     navigationOptions: {
-      tabBarLabel: 'Jag',
-      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="person" />),
+      tabBarLabel: 'Skickat',
+      tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="camera-roll" />),
       header: null      
     },
   },
-
 }, {
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
@@ -51,7 +51,7 @@ const Navigator = TabNavigator({
           barBackgroundColor: '#fff',
           activeLabelColor: colors.primaryColor          
         },
-        ProfileScreen: {
+        MemoriesScreen: {
           barBackgroundColor: '#fff',
           activeLabelColor: colors.primaryColor
         },
@@ -62,8 +62,7 @@ const Navigator = TabNavigator({
       }
     }
   },
-  initialRouteName: 'ProfileScreen',
+  initialRouteName: 'MemoriesScreen',
 });
-
 
 export default Navigator;

@@ -17,10 +17,6 @@ const invoke = async(data) => {
     userGetter.getUserByGuid(data.guid) 
   ]);
   return controllerHelper.successResponse(200, buildResponse(memories, contacts, user));
-
-  //user
-  //contacts
-  //memories
 }
 
 const buildResponse = (memories, contacts, user) => {

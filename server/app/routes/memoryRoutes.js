@@ -1,3 +1,4 @@
+const authHelper = require('../helpers/authHelper');
 
 module.exports = (app, multerFileUpload) => {
 
@@ -12,6 +13,12 @@ module.exports = (app, multerFileUpload) => {
     const getMemoryController = require('../controllers/memories/getMemoriesController');
     request.params.clientGuid = request.query.clientGuid
     const result = await getMemoryController.invoke(request.params);
+    response.status(result.status).send(result.body);
+  });
+
+  app.get('/sentMemories', authHelper.verifyToken, async(request, response) => {
+    const getAllMemoriesForUserController = require('../controllers/memories/getAllMemoriesForUserController');
+    const result = await getAllMemoriesForUserController.invoke(request.body);
     response.status(result.status).send(result.body);
   });
 
