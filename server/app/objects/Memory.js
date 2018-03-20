@@ -32,4 +32,8 @@ exports.Memory = class {
   getSenderName() {
     return this.memory.senderAsUser;
   }
+
+  getAsJson() {
+    return this.memory
+  }
 }

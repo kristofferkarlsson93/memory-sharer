@@ -16,7 +16,7 @@ module.exports = (app, multerFileUpload) => {
     response.status(result.status).send(result.body);
   });
 
-  app.get('/sentMemories', authHelper.verifyToken, async(request, response) => {
+  app.get('/memories/sent', authHelper.verifyToken, async(request, response) => {
     const getAllMemoriesForUserController = require('../controllers/memories/getAllMemoriesForUserController');
     const result = await getAllMemoriesForUserController.invoke(request.body);
     response.status(result.status).send(result.body);

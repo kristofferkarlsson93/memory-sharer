@@ -10,7 +10,7 @@ const invoke = async(data) => {
     return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);
   }
   const memories = await memoriesGetter.getAllMemoriesForUser(data.guid);
-  return controllerHelper.successResponse(200, memories);
+  return controllerHelper.successResponse(200, memories.map(memory => memory.getAsJson()));
 }
 
 module.exports = {invoke};

@@ -55,12 +55,10 @@ exports.User = class {
 
 	getPublicJson() {
 		return {
-			user: {
-				username: this.getUserName(),
-				guid: this.getGuid(),
-				id: this.getFirebaseId(),
-				email: this.getEmail()
-			}
+			username: this.getUserName(),
+			guid: this.getGuid(),
+			id: this.getFirebaseId(),
+			email: this.getEmail()
 		}
 	}
 }
