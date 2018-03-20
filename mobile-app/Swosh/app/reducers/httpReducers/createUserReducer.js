@@ -1,4 +1,4 @@
-import { createUserActions } from '../actions/actionTypes';
+import { createUserActions } from '../../actions/actionTypes';
 
 const initialState = {
   creatingUser: false,

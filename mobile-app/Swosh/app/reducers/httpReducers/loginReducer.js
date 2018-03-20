@@ -1,4 +1,4 @@
-import { loginUserActions } from '../actions/actionTypes';
+import { loginUserActions } from '../../actions/actionTypes';
 
 const initialState = {
   loggedIn: false,

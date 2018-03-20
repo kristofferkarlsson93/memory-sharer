@@ -55,7 +55,7 @@ const Navigator = TabNavigator({
           barBackgroundColor: '#fff',
           activeLabelColor: colors.primaryColor
         },
-        LoadingScreen: {
+        ContactScreen: {
           barBackgroundColor: '#fff',
           activeLabelColor: colors.primaryColor          
         },

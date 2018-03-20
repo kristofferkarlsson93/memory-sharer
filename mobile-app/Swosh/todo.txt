@@ -1,4 +1,1 @@
-* Ta bort menu-card
-* Dela upp datahämtningen i olika reducers (?)
-* Rada upp kontakter
 * Rada upp memories

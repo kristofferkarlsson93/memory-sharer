@@ -11,20 +11,11 @@ export const getAllUserData = (token) => {
       getContactsForUser(token),
       getAllMemories(token)
     ]);
-    const data = {
-      user,
-      contacts,
-      memories
-    };
-    console.log({
-      user,
-      contacts,
-      memories
-    })
+    const data = { user, contacts, memories };
     dispatch(userDataIsFetched(data));
-    /*if (memories.length) {
-      Promise.all(userSummary.memories.map(memoryGuid => getMemory(memoryGuid))); //TODO: Create the getMemory function and then fetch images.;
-    }*/
+    if (memories.length) {
+     // Promise.all(userSummary.memories.map(memoryGuid => getMemory(memoryGuid))); //TODO: Create the getMemory function and then fetch images.;
+    }
     
     
   }
@@ -34,7 +25,5 @@ export const getAllUserData = (token) => {
 const gettingData = () => ({ type: getAllUserDataActions.GETTING_DATA });
 
 const userDataIsFetched = (data) => ({type: getAllUserDataActions.USER_DATA_IS_FETCHED, data});
-
-const gettingDataSuccess = (data) => ({type: getAllUserDataActions.GETTING_DATA_SUCCESS, data});
 
 const gettingDataFailure = (error) => ({type: getAllUserDataActions.GETTING_DATA_FAILURE, error});

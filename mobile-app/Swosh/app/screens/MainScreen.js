@@ -14,7 +14,6 @@ class MainScreen extends React.Component {
     this.state = {
       image: null,
     };
-    console.log(this.props);
     this.props.getUserData(this.props.token);
   }
   

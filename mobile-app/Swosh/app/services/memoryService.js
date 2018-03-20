@@ -5,7 +5,7 @@ export const getAllMemories = async(token) => {
   if (!token) {
     throw 'Missing token when trying to get memories';
   }
-  const url = config.baseUrl + '/sentMemories';
+  const url = config.baseUrl + '/memories/sent';
   const fetchData = {
     method: 'GET',
     headers: {
@@ -14,6 +14,9 @@ export const getAllMemories = async(token) => {
   }
   const response = await fetch(url, fetchData);
   const json = await response.json();
-  console.log(json);
   return json;
+}
+
+export const getMemoryImage = async(token, ) => {
+
 }

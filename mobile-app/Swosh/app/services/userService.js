@@ -13,10 +13,8 @@ export const getUserSummary = async(token) => {
       'Authorization': 'Bearer ' + token
     }
   }
-  console.log('sending', token);
   const response = await fetch(url, fetchData);
   const json = await response.json();
-  console.log(json);
   return json;
 }
 
@@ -33,7 +31,6 @@ export const getUserInformation = async(token) => {
   }
   const response = await fetch(url, fetchData);
   const json = await response.json();
-  console.log('userData', json);
   return json;
 }
 

@@ -1,4 +1,4 @@
-import { getAllUserDataActions } from '../actions/actionTypes';
+import { getAllUserDataActions } from '../../actions/actionTypes';
 
 const initialState = {
   isFetchingUserData: false,
@@ -23,18 +23,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userInfo: action.data.user,
-        contacts: action.data.contacts,
         memories: action.data.memories,
-        hasFetchedSummary: true,
-        isFetchingMemories: true,
-      }
-    case getAllUserDataActions.GETTING_DATA_SUCCESS: 
-      return {
-        ...state,
-        memories: action.memories,
-        contacts: action.contacts,
-        isFetchingMemories: false,
-        isFetchingUserData: false
+        hasFetchedUserData: true,
       }
     case getAllUserDataActions.GETTING_DATA_FAILURE: 
       return {

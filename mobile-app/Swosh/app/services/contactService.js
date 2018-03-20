@@ -13,6 +13,5 @@ export const getContactsForUser = async(token) => {
   }
   const response = await fetch(url, fetchData);
   const json = await response.json();
-  console.log('contacts', json);
   return json;
 }
