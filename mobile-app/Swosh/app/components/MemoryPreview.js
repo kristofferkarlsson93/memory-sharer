@@ -5,7 +5,7 @@ import config from '../config/config';
 export default class MemoryPreview extends React.Component {
   render() {
     return (
-      <View>
+      <View style={{padding: 4}}>
         <Image
           style={{width: this.props.width, height: this.props.height}}
           source={{uri: config.baseUrl + '/image/?filePath='+this.props.memory.filePath }}

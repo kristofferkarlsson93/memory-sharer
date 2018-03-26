@@ -16,7 +16,3 @@ export const getAllMemories = async(token) => {
   const json = await response.json();
   return json;
 }
-
-export const getMemoryImage = async(token, ) => {
-
-}

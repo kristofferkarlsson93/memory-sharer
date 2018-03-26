@@ -13,7 +13,6 @@ export const loginUser = (userObject) => {
         email: userObject.email
       });
       dispatch(loginUserSuccess(token));
-      
     } catch(error) {
       console.log('action error', error);
       dispatch(loginUserFailure(error));
