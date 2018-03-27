@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Dimensions, FlatList, TouchableHighlight } from 'react-native';
+import { connect } from 'react-redux'
 import MemoryPreview from './MemoryPreview';
-
+import { memorySelected } from '../actions';
 
 //{this.renderMemoriesInGroupOf(this.props.itemsPerRow)}
 
-export default class MemoryList extends Component {
+class MemoryList extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -33,7 +34,7 @@ export default class MemoryList extends Component {
   }
 
   onMemoryClicked(memory) {
-    console.log('clicked', memory);
+    this.props.selectMemory(memory);
   }
 
 
@@ -110,6 +111,17 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectMemory: (memory) => dispatch(memorySelected(memory))
+  }
+}
 
+const mapStateToProps = (state) => {
+  return {
+  }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemoryList);
 
 //https://stackoverflow.com/questions/41540279/react-native-how-to-build-an-image-grid-like-facebook

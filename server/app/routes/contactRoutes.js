@@ -13,4 +13,11 @@ module.exports = (app) => {
 		const result = await getContactsForUserController.invoke(request.body);
 		response.status(result.status).send(result.body);
 	});
+
+	app.get('/contact/:contactGuid', authHelper.verifyToken, async(request, response) => {
+		const getContactController = require('../controllers/contacts/getContactController');
+		request.body.contactGuid = request.params.contactGuid;
+		const result = await getContactController.invoke(request.body);
+		response.status(result.status).send(result.body);
+	});
 }

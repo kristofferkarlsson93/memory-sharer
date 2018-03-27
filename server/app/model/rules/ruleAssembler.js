@@ -2,7 +2,8 @@ const errorCodes = require('../../constants/errorCodes').errorCodes;
 const userExists = require('./simpleRules/userShouldExist');
 const userShouldNotKnowOfContact = require('./simpleRules/userShouldNotKNowOfNewContact');
 const filePathExists = require('./simpleRules/filePathShouldExist');
-const senderKnowOfRecipient = require('./simpleRules/senderShouldHaveContact');
+const senderKnowOfRecipient = require('./simpleRules/userShouldHaveContact');
+const userHasContact = require('./simpleRules/userShouldHaveContact');
 const hasClientInfo = require('./simpleRules/recipientsShouldBeAbleToReceive');
 const clientIsARecipient = require('./simpleRules/clientShouldBeARecipient');
 const usernameShouldNotBeTaken = require('./simpleRules/usernameCanNotBeOccupied');
@@ -63,6 +64,13 @@ const usersShouldNotKnowOfNewContact = (user, contact) => {
 	} else return true;
 }
 
+const userShouldKnowOfContact = (user, contact) => {
+	const userKnowOfContact = userHasContact(user, contact);
+	if (!userKnowOfContact) {
+		throw errorCodes.NOT_A_CONTACT;
+	} else return true;
+}
+
 const givenFilePathShouldExist = (filePath) => {
 	if (!filePathExists(filePath)) {
 		throw errorCodes.INVALID_IMAGE;
@@ -110,5 +118,6 @@ module.exports = {
 	emailShouldBeValid,
 	passwordShouldBeValid,
 	passwordsShouldMatch,
-	clientIdShouldBeKnown
+	clientIdShouldBeKnown,
+	userShouldKnowOfContact
 }

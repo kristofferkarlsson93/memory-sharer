@@ -10,7 +10,7 @@ const memoryPersister = require('../../model/persisters/memoryPersister');
 const invoke = async (bodyData, fileData) => {
   console.log('Remember to implement a Ping-function');
   console.log('Remember to check that recipients has client-info');
-  console.log(bodyData);
+  //console.log(bodyData);
   if(!bodyData.sender || !bodyData.recipients) {
     return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);    
   }

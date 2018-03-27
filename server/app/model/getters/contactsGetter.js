@@ -1,12 +1,12 @@
 const db = require('../contactDb');
-const firbaseParser = require('../../helpers/firebaseParser');
+const firebaseParser = require('../../helpers/firebaseParser');
 
 const getContactsByGuid = (userGuid) => {
   return db.getContactsByGuid(userGuid).then(result => {
     if(!result) {
       return [];
     }
-    return firbaseParser.parseListOfContactGuids(result);
+    return firebaseParser.parseListOfContactGuids(result);
   });
 }
 
