@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements'
 import colors from '../constants/colors';
+import MemoryDetails from '../components/memory/MemoryDetails';
 
 class ContactsScreen extends React.Component {
 

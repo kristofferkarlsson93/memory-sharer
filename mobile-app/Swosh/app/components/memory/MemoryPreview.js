@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import config from '../config/config';
+import MemoryImage from './MemoryImage';
 
 export default class MemoryPreview extends React.Component {
   render() {
     return (
       <View style={{padding: 4}}>
-        <Image
-          style={{width: this.props.width, height: this.props.height}}
-          source={{uri: config.baseUrl + '/image/?filePath='+this.props.memory.filePath }}
+        <MemoryImage 
+          filePath={this.props.memory.filePath}
+          height={this.props.height}
+          width={this.props.width}
         />
       </View>
     );

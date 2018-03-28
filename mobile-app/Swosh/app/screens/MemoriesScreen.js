@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import colors from '../constants/colors'
 import config from '../config/config';
-import MemoryList from '../components/MemoryList';
+import MemoryList from '../components/memory/MemoryList';
 /*
 TODO: 
   Hämta användardata
@@ -18,12 +18,17 @@ class MemoriesScreen extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <Text>Alla dina skickade minnen</Text>
         <View style={styles.content}> 
           { this.props.memories.length 
-            ? <MemoryList memories={this.props.memories} itemsPerRow={3} /> 
+            ? <MemoryList 
+                memories={this.props.memories} 
+                itemsPerRow={3}
+                onSelectMemory={() => this.props.navigation.navigate('MemoryDetailsScreen')}
+              /> 
             : <Text>Blaj</Text>}  
       </View>      
       </View>

@@ -19,7 +19,6 @@ export const getContactsForUser = async(token) => {
 }
 
 export const getContact = async(contactGuid, token) => {
-  console.log('getting', contactGuid);
   if (!token || !contactGuid) {
     throw 'Missing parameter when trying to get contacts';
   }
@@ -32,5 +31,7 @@ export const getContact = async(contactGuid, token) => {
   }
   const response = await fetch(url, fetchData);
   const json = await response.json();
-  return json;
+  if (!response.ok) {
+    throw json.error.code;
+  } else return json;
 }

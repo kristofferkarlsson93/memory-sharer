@@ -10,21 +10,25 @@ export const memorySelected = (memory) => {
     dispatch(contactsIsBeingFetched());
     try {
       const contacts = await Promise.all(memory.recipients.map(guid => getContact(guid, token)));
-      console.log('contacts oso', contacts);
-      dispatch(success(contacts));
+      const detailedMemory = buildDetailedMemory(memory, contacts);
+      dispatch(success(detailedMemory));
     } catch (error) {
       dispatch(failure(error));
     }
-
-
   }
 
 }
 
+const buildDetailedMemory = (memory, contacts) => {
+  const detailedMemory = Object.assign({}, memory);
+  detailedMemory.recipients = contacts;
+  return detailedMemory;
+}
+
 const selectedMemory = (memoryId) => ({type: userSelections.SELECTED_MEMORY, memoryId});
 
-const contactsIsBeingFetched = () => ({type: fetchMemoryDetails.FETCHING_CONTACT_DETAILS});
+const contactsIsBeingFetched = () => ({type: fetchMemoryDetails.FETCHING_MEMORY_DETAILS});
 
-const success = (contacts) => ({type: fetchMemoryDetails.FETCHING_CONTACT_DETAILS_SUCCESS, contacts});
+const success = (selectedMemory) => ({type: fetchMemoryDetails.FETCHING_MEMORY_DETAILS_SUCCESS, selectedMemory});
 
-const failure = (error) => ({type: fetchMemoryDetails.FETCHING_CONTACT_DETAILS_FAILURE, error});
+const failure = (error) => ({type: fetchMemoryDetails.FETCHING_MEMORY_DETAILS_FAILURE, error});

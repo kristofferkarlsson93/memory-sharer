@@ -4,6 +4,7 @@ import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import { TabNavigator } from 'react-navigation';
 import HomeScreen from './screens/MainScreen';
 import MemoriesScreen from './screens/MemoriesScreen';
+import MemoriesScreenNavigator from './screens/screenNavigators/MemoryScreenNavigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from './constants/colors';
 import LoadingScreen from './screens/LoadingScreen';
@@ -28,7 +29,7 @@ const Navigator = TabNavigator({
     },
   },
   MemoriesScreen: {
-    screen: MemoriesScreen,
+    screen: MemoriesScreenNavigator,
     navigationOptions: {
       tabBarLabel: 'Skickat',
       tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="camera-roll" />),
