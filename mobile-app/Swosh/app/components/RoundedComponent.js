@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default class RoundedButton extends React.Component {
+export default class RoundedComponent extends React.Component {
   render() {
     return (
       <View
@@ -20,7 +20,7 @@ export default class RoundedButton extends React.Component {
         }} 
         onPress={this.props.onPress}
       >
-        <Icon size={32} color="white" name={this.props.icon} />
+      {this.props.children}
     </View>
     );
   }

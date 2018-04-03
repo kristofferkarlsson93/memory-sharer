@@ -5,7 +5,6 @@ export const memorySelected = (memory) => {
   return async(dispatch, getState) => {
     const { logIn } = getState();
     const token = logIn.token;
-    console.log('memory', memory);
   
     dispatch(contactsIsBeingFetched());
     try {

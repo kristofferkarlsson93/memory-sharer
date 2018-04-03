@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements'
 import colors from '../constants/colors';
 import MemoryDetails from '../components/memory/MemoryDetails';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class ContactsScreen extends React.Component {
 
@@ -15,10 +16,10 @@ class ContactsScreen extends React.Component {
             this.props.contacts.map((contact, index) => (
               <View style={styles.listItemContainer} key={index}>
                 <ListItem
-                  style={[styles.listItem, {backgroundColor: index % 2 === 1 ? colors.primaryColorTransparent : '#fff'}]}
+                  style={[styles.listItem]}
                   roundAvatar
                   hideChevron
-                  avatar={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7km9aF4a2tBFZ5bQZ7G1-63A91TC8orihK5TbljtgYFs7mmdm'}}
+                  avatar={<Icon size={24} color={colors.primaryColor} name='person' />}
                   key={index}
                   title={contact.username}
                 />
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
   listItem: {
     paddingTop: 20,
     paddingBottom: 20,
+    borderBottomColor: colors.primaryBorderColor,
+    borderBottomWidth: 2,
   }
 });
 
