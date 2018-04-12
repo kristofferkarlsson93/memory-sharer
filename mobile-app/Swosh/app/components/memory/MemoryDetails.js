@@ -5,8 +5,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MemoryImage from './MemoryImage';
 import colors from '../../constants/colors';
 import RoundedComponent from '../RoundedComponent';
+import Dialog from '../Dialog';
+import PersonList from '../PersonList';
 
 class MemoryDetails extends React.Component {
+  state = {
+    showDialog: false
+  }
   render() {
     const memory = this.props.selectedMemory;
     console.log(memory)
@@ -25,18 +30,35 @@ class MemoryDetails extends React.Component {
           <TouchableOpacity style={[styles.recipientContainer,]} onPress={() => this.onPressContacts()}>
             <Text style={styles.text}>Skickat till </Text>
             <Text style={[styles.text, {fontWeight: 'bold'}]}>{recipients ? recipients[0].username : ''} </Text>
-            <Text style={[styles.text, {fontWeight: 'bold'}]}> { recipients && recipients.length > 1 ? 'och ' + recipients.length + ' till' : '' }</Text>
+            <Text style={[styles.text, {fontWeight: 'bold'}]}> 
+              { recipients && recipients.length > 1 ? 'och ' + this.getNumberOfHiddenRecipients(recipients) + ' till' : '' }
+            </Text>
           </TouchableOpacity>
           <View style={[styles.messageContainer, styles.contentItem]}>
             <Text style={styles.text} >{memory.message}</Text>
           </View>
         </ScrollView>
+        <Dialog
+          title={'Mottagare'}
+          name={'recipientsDialog'}
+          showDialog={this.state.showDialog}
+          children={<PersonList listItems={memory.recipients} />}
+          scrolled={false}
+          onOk={() => this.setState({showDialog: false})}
+          cancelLabel={''}
+          okLabel={'OKEJ'}
+        />
       </View>
     );
   }
 
   onPressContacts() {
     console.log('Visa kontakter dååååå');
+    this.setState({showDialog: true})
+  }
+
+  getNumberOfHiddenRecipients(recipients) {
+    return recipients.length - 1;
   }
 }
 
