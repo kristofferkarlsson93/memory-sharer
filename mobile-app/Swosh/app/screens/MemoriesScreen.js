@@ -64,22 +64,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',    
     flex: 1,
-    marginTop: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.background,
   },
-  
   content: {
-    flex: 4
-  },
-  menuItem: {
-    flex: 1,
-    elevation: 8, 
-    alignSelf: 'stretch',
+    flex: 5,
+    marginTop: 10
   },
   memoryRow: {
   },
