@@ -10,6 +10,7 @@ export default class MemoryPreview extends React.Component {
           filePath={this.props.memory.filePath}
           height={this.props.height}
           width={this.props.width}
+          borderRadius={this.props.borderRadius}
         />
       </View>
     );

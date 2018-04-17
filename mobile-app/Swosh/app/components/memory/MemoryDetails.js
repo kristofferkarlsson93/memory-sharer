@@ -14,7 +14,6 @@ class MemoryDetails extends React.Component {
   }
   render() {
     const memory = this.props.selectedMemory;
-    console.log(memory)
     recipients = Object.keys(memory).length ? memory.recipients : false;
     return (
       <View style={styles.container}>
@@ -53,7 +52,6 @@ class MemoryDetails extends React.Component {
   }
 
   onPressContacts() {
-    console.log('Visa kontakter dååååå');
     this.setState({showDialog: true})
   }
 

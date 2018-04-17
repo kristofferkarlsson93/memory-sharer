@@ -66,7 +66,6 @@ class MainScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  //console.log('STATE', state);
   return {
     token: state.logIn.token
   }
@@ -94,33 +93,3 @@ const styles = StyleSheet.create({
     marginBottom:20    
   }
 });
-
-
-
-/** 
- *     return (
-      <View style={styles.container}>
-        <View style={{marginBottom: 30}}>
-          <RoundedButton 
-            style={styles.roundedButton}
-            borderWidth={0}
-            borderColor={colors.primaryBorderColor}
-            size={150}
-            backgroundColor={colors.primaryColor}
-            icon={'camera-alt'}
-          />
-        </View>
-        <View>
-          <RoundedButton 
-            style={styles.roundedButton}
-            borderWidth={0}
-            borderColor={colors.primaryBorderColor}
-            size={150}
-            backgroundColor={colors.primaryColor}
-            icon={'image'}
-          />
-        </View>
-      </View>
-    );
- * 
-*/

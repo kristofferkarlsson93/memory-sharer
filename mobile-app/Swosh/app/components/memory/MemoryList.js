@@ -8,30 +8,33 @@ import Dialog from '../Dialog';
 //{this.renderMemoriesInGroupOf(this.props.itemsPerRow)}
 
 class MemoryList extends Component {
+
   render() {
+    const imageSize = Dimensions.get('window').width / this.props.itemsPerRow - 10;
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.content}>
-            <FlatList 
-              data={this.props.memories}
-              numColumns={this.props.itemsPerRow}
-              keyExtractor={(item, index) => index}
-              renderItem={({item}, index) => (
-                <TouchableHighlight
-                  onPress={() => this.onMemoryClicked(item)}  
-                >
-                  <MemoryPreview 
-                    style={styles.memory}
-                    memory={item}
-                    width={Dimensions.get('window').width / this.props.itemsPerRow}
-                    height={100}
-                  />
-                </TouchableHighlight>
-              )}
-            />
-          </View>
-        </ScrollView>
+        <View style={styles.content}>
+          <FlatList 
+            data={this.props.memories}
+            numColumns={this.props.itemsPerRow}
+            keyExtractor={(item, index) => index}
+            initialNumToRender={3}
+            renderItem={({item}, index) => (
+              <TouchableHighlight
+                onPress={() => this.onMemoryClicked(item)}  
+              >
+                <MemoryPreview 
+                  style={styles.memory}
+                  memory={item}
+                  width={imageSize}
+                  height={imageSize}
+                  borderRadius={100}
+                />
+              </TouchableHighlight>
+            )}
+          />
+        </View>
+      
       </View>
     )
   }

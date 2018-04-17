@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import colors from '../constants/colors'
 import config from '../config/config';
 import MemoryList from '../components/memory/MemoryList';
-/*
-TODO: 
-  Hämta användardata
-  Kunna cascha hämtad data 
-  Kunna avgöra om det finns ny data, eller om data blivit ändrad. 
+import NumberSummary from '../components/summarys/NumberSummary';
 
-*/
+/**
+ * TODO: Lägg till funktionalitet för att visa mottagna minnen också.
+ */
+
 const MEMORIES_PER_ROW = 3;
+
 class MemoriesScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +20,14 @@ class MemoriesScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Alla dina skickade minnen</Text>
+        <View style={styles.header}>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <NumberSummary number={this.props.memories.length} title={'Skickat'}/>
+          </View>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <NumberSummary number={0} title={'Mottaget'} />
+          </View>
+        </View>
         <View style={styles.content}> 
           { this.props.memories.length 
             ? <MemoryList 
@@ -34,7 +41,6 @@ class MemoriesScreen extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {
@@ -60,8 +66,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  content: {
+  header: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    flex: 1,
+    marginTop: 10,
+  },
+  
+  content: {
+    flex: 4
   },
   menuItem: {
     flex: 1,

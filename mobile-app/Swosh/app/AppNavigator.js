@@ -31,7 +31,7 @@ const Navigator = TabNavigator({
   MemoriesScreen: {
     screen: MemoriesScreenNavigator,
     navigationOptions: {
-      tabBarLabel: 'Skickat',
+      tabBarLabel: 'Minnen',
       tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="camera-roll" />),
       header: null      
     },
