@@ -32,10 +32,10 @@ class MemoriesScreen extends React.Component {
           { this.props.memories.length 
             ? <MemoryList 
                 memories={this.props.memories} 
-                itemsPerRow={3}
+                itemsPerRow={MEMORIES_PER_ROW}
                 onSelectMemory={() => this.props.navigation.navigate('MemoryDetailsScreen')}
               /> 
-            : <Text>Blaj</Text>}  
+            : <Text>Du har inte skapat några minnen ännu.</Text>}  
       </View>      
       </View>
     );

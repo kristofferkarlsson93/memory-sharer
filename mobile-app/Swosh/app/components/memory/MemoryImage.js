@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import config from '../../config/config';
 
 export default class MemoryImage extends React.Component {
+ 
   render() {
     return (
       <Image

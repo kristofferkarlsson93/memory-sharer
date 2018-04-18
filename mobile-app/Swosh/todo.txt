@@ -1,1 +1,2 @@
-* Rada upp memories
+* Hantera att bilder kan laddas segt - Visa någon loader. 
+* På serversidan bör bilderna komprimeras ordentligt

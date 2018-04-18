@@ -58,7 +58,6 @@ class MainScreen extends React.Component {
 
     });
 
-
     if (!result.cancelled) {
       this.setState({ image: result.uri });
     }
