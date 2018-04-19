@@ -8,8 +8,8 @@ export const memorySelected = (memory) => {
   
     dispatch(contactsIsBeingFetched());
     try {
-      const contacts = await Promise.all(memory.recipients.map(guid => getContact(guid, token)));
-      const detailedMemory = buildDetailedMemory(memory, contacts);
+      const recipients = await Promise.all(memory.recipients.map(guid => getContact(guid, token)));
+      const detailedMemory = buildDetailedMemory(memory, recipients);
       dispatch(success(detailedMemory));
     } catch (error) {
       dispatch(failure(error));
@@ -18,9 +18,9 @@ export const memorySelected = (memory) => {
 
 }
 
-const buildDetailedMemory = (memory, contacts) => {
+const buildDetailedMemory = (memory, recipients) => {
   const detailedMemory = Object.assign({}, memory);
-  detailedMemory.recipients = contacts;
+  detailedMemory.recipients = recipients;
   return detailedMemory;
 }
 

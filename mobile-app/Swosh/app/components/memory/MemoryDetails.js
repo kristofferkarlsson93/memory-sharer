@@ -7,6 +7,7 @@ import colors from '../../constants/colors';
 import RoundedComponent from '../RoundedComponent';
 import Dialog from '../Dialog';
 import PersonList from '../PersonList';
+import config from '../../config/config';
 
 class MemoryDetails extends React.Component {
   state = {
@@ -20,7 +21,7 @@ class MemoryDetails extends React.Component {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={[styles.imageContainer, styles.contentItem]}>
             <MemoryImage 
-              filePath={memory.filePath}
+              filePath={config.imageBaseUrl + memory.filePath}
               height={250}
               width={300}
               borderRadius={25}

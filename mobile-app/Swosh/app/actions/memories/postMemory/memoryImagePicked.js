@@ -3,7 +3,7 @@ import { postMemory } from '../../actionTypes';
 
 export const memoryImagePicked = (imageUri) => {
   return async(dispatch, getState) => {
-    dispatch(memoryImageSelected);
+    dispatch(memoryImageSelected(imageUri));
   }
 }
 

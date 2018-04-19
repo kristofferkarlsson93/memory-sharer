@@ -1,7 +1,7 @@
-import { postMemory } from '../../actions/actionTypes';
+import { postMemory } from '../actions/actionTypes';
 
 const initialState = {
-  imageUri = '',
+  imageUri: '',
 };
 
 export default (state = initialState, action) => {
@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         imageUri: action.imageUri
-      }
+      };
       default:
       return state;
   }

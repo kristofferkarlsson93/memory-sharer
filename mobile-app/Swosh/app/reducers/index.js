@@ -4,7 +4,8 @@ import createUser from './httpReducers/createUserReducer';
 import loginUser from './httpReducers/loginReducer';
 import getUserDetails from './httpReducers/getUserDetailsReducer';
 import contacts from './httpReducers/contactsReducer';
-import memories from './httpReducers/memoriesReducer';
+import memories from './memoriesReducer';
+import postMemory from './postMemoryReducer';
 
 export default combineReducers({
   navigation,
@@ -12,5 +13,6 @@ export default combineReducers({
   logIn: loginUser,
   userDetails: getUserDetails,
   contacts: contacts,
-  memories: memories
+  memories: memories,
+  postMemory: postMemory
 });

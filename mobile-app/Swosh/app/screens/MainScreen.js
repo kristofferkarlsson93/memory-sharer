@@ -6,19 +6,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../constants/colors';
 import { ImagePicker } from 'expo';
 import { getAllUserData } from '../actions';
+import { memoryImagePicked } from '../actions';
 
 class MainScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      image: null,
-    };
     this.props.getUserData(this.props.token);
   }
   
     render() {
-      let { image } = this.state;
   
       return (
         <View style={styles.container}>
@@ -43,8 +40,6 @@ class MainScreen extends React.Component {
             onPress={this.pickImage}            
           />
         </View>
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       </View>
 
       );
@@ -55,11 +50,12 @@ class MainScreen extends React.Component {
       allowsEditing: true,
       //aspect: [4, 3], 
       base64: true,
-
     });
 
+    //console.log(this.props);
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.props.onMemoryImagePicked(result.uri);
+      this.props.navigation.navigate('AddMessageScreen');
     }
   };
 }
@@ -72,7 +68,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUserData: (token) => dispatch(getAllUserData(token))
+    getUserData: (token) => dispatch(getAllUserData(token)),
+    onMemoryImagePicked: (imageUri) => dispatch(memoryImagePicked(imageUri))
   }
 }
 

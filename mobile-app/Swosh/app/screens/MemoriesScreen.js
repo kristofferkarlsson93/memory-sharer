@@ -77,12 +77,5 @@ const styles = StyleSheet.create({
   content: {
     flex: 5,
     marginTop: 10
-  },
-  memoryRow: {
-  },
-  memoryContainer: {
-   
-  },
-  memory: {
   }
 });

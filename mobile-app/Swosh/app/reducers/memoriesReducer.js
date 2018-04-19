@@ -1,4 +1,4 @@
-import { getAllUserDataActions, fetchMemoryDetails } from '../../actions/actionTypes';
+import { getAllUserDataActions, fetchMemoryDetails, postMemory } from '../actions/actionTypes';
 
 const initialState = {
   memories: [],
@@ -6,6 +6,9 @@ const initialState = {
   selectedMemory: {},
   error: false,
   errorType: '',
+  memoryPost: {
+    imageUri: ''
+  }
 }
 export default (state = initialState, action) => {
   switch(action.type) {
@@ -26,6 +29,11 @@ export default (state = initialState, action) => {
         error: true,
         errorType: action.error
       }
+    case postMemory.MEMORY_IMAGE_SELECTED: {
+        return {
+          ...state,
+        }
+    }
     default:
       return state;
   }

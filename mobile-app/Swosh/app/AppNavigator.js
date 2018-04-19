@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import { TabNavigator } from 'react-navigation';
-import HomeScreen from './screens/MainScreen';
+import PostMemoryScreenNavigator from './screens/screenNavigators/PostImageNavigator';
 import MemoriesScreen from './screens/MemoriesScreen';
 import MemoriesScreenNavigator from './screens/screenNavigators/MemoryScreenNavigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,7 +21,7 @@ const Navigator = TabNavigator({
     },
   },  
   HomeScreen: {
-    screen: HomeScreen,
+    screen: PostMemoryScreenNavigator,
     navigationOptions: {
       tabBarLabel: 'Swosha',
       tabBarIcon: () => (<Icon size={24} color={colors.primaryColor} name="play-arrow" />),
@@ -63,7 +63,7 @@ const Navigator = TabNavigator({
       }
     }
   },
-  initialRouteName: 'MemoriesScreen',
+  initialRouteName: 'HomeScreen',
 });
 
 export default Navigator;
