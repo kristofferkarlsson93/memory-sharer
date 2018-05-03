@@ -3,12 +3,12 @@ import { StyleSheet, Text, View} from 'react-native';
 import { connect } from 'react-redux';
 import LoadingSpinner from '../components/LoadingSpinner'
 import MemoryImage from '../components/memory/MemoryImage';
+import LargeTextInput from '../components/LargeTextInput';
+import { memoryTextChanged } from '../actions'
 
 class AddMessageScreen extends React.Component {
 
-
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -19,10 +19,18 @@ class AddMessageScreen extends React.Component {
           />
         </View>
         <View style={styles.messageContainer} >
-
+          <LargeTextInput 
+            value={this.props.storedMessage}
+            onChangeText={(text) => this.props.onTextChanged(text)}
+            onSubmit={(message) => this.onSubmitMessage(message)}
+          />
         </View>
       </View>
     );
+  }
+
+  onSubmitMessage(message) {
+    
   }
 }
 
@@ -34,15 +42,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
 
   },
-  roundedButton: {
-    alignItems:'center',
-    justifyContent:'center',
-    marginBottom:20, 
-  },
   imageContainer: {
-    flex: 1,
+    //flex: 1,
     marginTop: 20
   },
   messageContainer: {
@@ -52,8 +56,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    pickedImageUri: state.postMemory.imageUri
+    pickedImageUri: state.postMemory.imageUri,
+    storedMessage: state.postMemory.message
   }
 }
 
-export default connect(mapStateToProps)(AddMessageScreen);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTextChanged: (text) => dispatch(memoryTextChanged(text))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddMessageScreen);

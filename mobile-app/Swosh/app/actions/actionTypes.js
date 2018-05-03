@@ -28,5 +28,6 @@ export const fetchMemoryDetails = {
 }
 
 export const postMemory = {
-  MEMORY_IMAGE_SELECTED: 'MEMORY_IMAGE_SELECTED'
+  MEMORY_IMAGE_SELECTED: 'MEMORY_IMAGE_SELECTED',
+  MEMORY_TEXT_CHANGED: 'MEMORY_TEXT_CHANGED',
 }
