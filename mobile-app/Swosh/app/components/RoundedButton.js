@@ -7,7 +7,7 @@ export default class RoundedButton extends React.Component {
     return (
       <TouchableOpacity
         style={{
-          borderWidth: this.props.borderWidth,
+          borderWidth: this.props.borderWidth || 0,
           borderColor: this.props.borderColor, 
           alignItems:'center',
           justifyContent:'center',

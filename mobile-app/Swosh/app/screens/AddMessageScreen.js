@@ -5,6 +5,8 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import MemoryImage from '../components/memory/MemoryImage';
 import LargeTextInput from '../components/LargeTextInput';
 import { memoryTextChanged } from '../actions'
+import RoundedButton from '../components/RoundedButton';
+import colors from '../constants/colors';
 
 class AddMessageScreen extends React.Component {
 
@@ -20,17 +22,21 @@ class AddMessageScreen extends React.Component {
         </View>
         <View style={styles.messageContainer} >
           <LargeTextInput 
-            value={this.props.storedMessage}
+            value={this.props.storedMessage || ''}
             onChangeText={(text) => this.props.onTextChanged(text)}
-            onSubmit={(message) => this.onSubmitMessage(message)}
+            placeholder={'Lägg till ett meddelande'}
+          />
+        </View>
+        <View style={styles.forwardButtonContainer}>
+          <RoundedButton 
+            size={100}
+            backgroundColor={colors.primaryColor}
+            icon={'arrow-forward'}
+            onPress={() =>  this.props.navigation.navigate('AddContactsToMemoryScreen')}
           />
         </View>
       </View>
     );
-  }
-
-  onSubmitMessage(message) {
-    
   }
 }
 
@@ -46,12 +52,16 @@ const styles = StyleSheet.create({
 
   },
   imageContainer: {
-    //flex: 1,
+    flex: 2,
     marginTop: 20
   },
   messageContainer: {
-    flex: 2
-  }
+    flex: 1
+  },
+  forwardButtonContainer: {
+    flex: 1,
+    alignItems: 'center'
+  },
 });
 
 const mapStateToProps = (state) => {

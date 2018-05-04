@@ -13,6 +13,7 @@ export default class LargeTextInput extends React.Component {
           onChangeText={(text) => this.props.onChangeText(text)}
           onSubmit={() => this.props.onSubmitEditing()}
           multiline={true}
+          placeholder={this.props.placeholder}
         />
       </KeyboardAvoidingView>
     );
