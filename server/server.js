@@ -10,6 +10,7 @@ const port = 8000;
 app.use(bodyParser.json({extended: true}));
 require('./app/routes')(app, multerFileUpload);
 app.listen(port, () => {
+  console.log('Running server');
 });
 
 

@@ -3,10 +3,67 @@
 ## Server API documentation
 The basic url to the server is `to be added`
 
+### Authorization
+Authorization can currently be done by the following methods:
+- Username and password
+
+Af the authorization is successful an jwt-token is received, containing the following:
+- Expiration time
+- The users guid
+
+The token is to be added to each request against the API.
+
+#### Route - Login 
+`POST: /auth/login`
+
+##### Parameters
+| Parameter   | value                                      |
+| ----------- |:------------------------------------------:|
+| clientId    | An id that is distributed by the API-admin |
+| password    | The users password.                        |
+| username    | The users username                         |
+
+##### Response
+**200**
+```
+{
+    token: '<auth key>'
+}
+```
+
+**400**
+```
+{
+    error: {
+        code: 'INVALID_CLIENT_ID'
+    }
+}
+```
+
+**403**
+```
+{
+    error: {
+        code: 'LOGIN_FAILED'
+    }
+}
+```
+
+**404**
+
+```
+{
+    error: {
+        code: 'USER_DOES_NOT_EXISTS'
+    }
+}
+```
+
+
 ### User
 
 #### Route - Get User
-GET: `baseURL/user/{id}`
+GET: `/user/{id}`
 
 #### Response
 
