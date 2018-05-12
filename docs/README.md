@@ -1,5 +1,22 @@
 # Memory sharer
 
+## Internal function and system design.
+
+There are four main route collections. 
+- Auth
+- User
+- Contacts
+- Memories
+
+The auth route is used to get authorization-token to access the rest of the API. 
+When calling a route the internal system will:
+- Get relevant information from the database
+- run the retrieved information and the request information through a layer of rules.
+- If the rules are satisfied by the request, the information will be persisted and/or the caller will get the requested information.
+- If the rules are not satisfied the caller will get an status code and a message explaining the error.
+
+The rules are built from simple rules that are putted together by the rule assembler.
+
 ![alt text](./Memory-sharer-system.png)
 
 ## Server API documentation
@@ -19,25 +36,25 @@ The token is to be added to each request against the API.
 `POST: /auth/login`
 
 ##### Parameters
-| Parameter   | value                                      |
-| ----------- |:------------------------------------------:|
-| clientId    | An id that is distributed by the API-admin |
-| password    | The users password.                        |
-| username    | The users username                         |
+|Type  | Parameter   | value                                      |
+|:-----| :---------- |:-------------------------------------------|
+|json  | clientId    | An id that is distributed by the API-admin |
+|json  | password    | The users password.                        |
+|json  | username    | The users username                         |
 
 ##### Response
 **200**
 ```js 
 {
-    token: '<auth key>'
+    "token": "<auth key>"
 }
 ```
 
 **400**
 ```js 
 {
-    error: {
-        code: 'INVALID_CLIENT_ID'
+    "error": {
+        "code": "INVALID_CLIENT_ID"
     }
 }
 ```
@@ -45,8 +62,8 @@ The token is to be added to each request against the API.
 **403**
 ```js 
 {
-    error: {
-        code: 'LOGIN_FAILED'
+    "error": {
+        "code": "LOGIN_FAILED"
     }
 }
 ```
@@ -55,8 +72,8 @@ The token is to be added to each request against the API.
 
 ```js 
 {
-    error: {
-        code: 'USER_DOES_NOT_EXISTS'
+    "error": {
+        "code": "USER_DOES_NOT_EXISTS"
     }
 }
 ```
@@ -258,7 +275,7 @@ image
 ``` 
 
 ##### 400
-```
+```json
 {
     "error": {
         "code": "INVALID_IMAGE" // The requested file does not exist or can not be accessed
@@ -268,58 +285,39 @@ image
 
 #### Route - Add memory
 POST: `baseURL/memory`
-
 ##### Parameters
-| Parameter   | value                 | format               |
-| ----------- |:---------------------:| --------------------:|
-| memory      | Image to be uploaded  | .png or .jpeg - file |
-| recipients  | Array of user guids   | [..., ..., ..., ]    |
-| sender      | A user guid           | .......              |
-| message     | String (Optional      | 'Hello my friend'    |
+|Type                | Parameter     | value                   |
+|:-------------------|:--------------|:------------------------|
+|Head                | Authorization | `Bearer <auth token>`   |
+|json                | memory        | `Image (.png or .jpeg`  |
+|json                | recipients    | `[<guid>, <guid>,...]`  |
+|json                | message       | `"Hello there!"`        |    
 
-#### Response
 
-##### 200
-```
+##### Response
+
+**200**
+```json
 {
     "failedToSendTo": []
 }
 ``` 
 
 ##### 400
-```
+```json
 {
-    error: {
-        code: INVALID_IMAGE
+    "error": {
+        "code": "INVALID_IMAGE"
     }
 }
 ```
 ##### 404
-```
+```json
 {
-    error: {
-        code: USER_DOES_NOT_EXISTS
+    "error": {
+        "code": "USER_DOES_NOT_EXISTS"
     }
 }
 ```
-
-### Delete memory
-
-DELETE: `baseURL/memory/{id}`
-
-#### Response
-
-##### 200
-Successfully deleted memory
-
-##### 400
-```
-{
-    error: {
-        code: 'INVALID_ID'
-    }
-}
-```
-
 
 
