@@ -1,4 +1,6 @@
-# Project title
+# Memory sharer
+
+![alt text](./Memory-sharer-system.png)
 
 ## Server API documentation
 The basic url to the server is `to be added`
@@ -7,7 +9,7 @@ The basic url to the server is `to be added`
 Authorization can currently be done by the following methods:
 - Username and password
 
-Af the authorization is successful an jwt-token is received, containing the following:
+If the authorization is successful an jwt-token is received, containing the following:
 - Expiration time
 - The users guid
 
@@ -25,14 +27,14 @@ The token is to be added to each request against the API.
 
 ##### Response
 **200**
-```
+```js 
 {
     token: '<auth key>'
 }
 ```
 
 **400**
-```
+```js 
 {
     error: {
         code: 'INVALID_CLIENT_ID'
@@ -41,7 +43,7 @@ The token is to be added to each request against the API.
 ```
 
 **403**
-```
+```js 
 {
     error: {
         code: 'LOGIN_FAILED'
@@ -51,7 +53,7 @@ The token is to be added to each request against the API.
 
 **404**
 
-```
+```js 
 {
     error: {
         code: 'USER_DOES_NOT_EXISTS'
@@ -63,20 +65,26 @@ The token is to be added to each request against the API.
 ### User
 
 #### Route - Get User
-GET: `/user/{id}`
+`GET: /user`
 
-#### Response
+##### Parameters
+|Type      | Parameter     | value                 |
+|---------:| -------------:|----------------------:|
+|Head      | Authorization | `Bearer <auth token>` |
 
-##### 200
-```
+##### Response
+
+**200**
+```js
 {
     name: 'Kristoffer',
     guid: "bjbsnjfhdfngjdf4541154dsfds"
     id: 'hgfisds44',
+    email: 'kristoffer@email.com'
 }
 ```
 #### 404
-```
+```js
 {
     error: {
         code: 'USER_DOES_NOT_EXISTS'   
@@ -84,41 +92,39 @@ GET: `/user/{id}`
 }
 ```
 
-#### Route - Add User
-POST: `baseURL/user`
-```
-{
-    userName: 'Kristoffer',
-    guid: 'sdfsdfsf45rers54esr'
-}
-```
+#### Route - Add User (Not protected)
+`POST: /user`
 
-#### Response
-##### 200
-```
+##### Parameters
+|Type      | Parameter   | value                   |
+|---------:| ----------- |:-----------------------:|
+|json      | username    | `'kristoffer'`          |
+|json      | password    | `'*********'`           |
+|json      | clientId    | `'client.id.se'`        |
+
+
+##### Response
+**200**
+```json
 {
-    "user": {
-        "userName": "Olle",
-        "guid": "sdffsdl445dsf4553dsf",
-        "id": "-L3j8Vu6teP7R7SDi4hC"
+   "guid": "<guid>"
+}
+
+```
+**400**
+```json
+{
+    "error: {
+         code: 'INVALID_USERNAME' | 'INVALID_EMAIL' | INVALID_PASSWORD | INVALID_CLIENT_ID
     }
 }
-
-```
-##### 400
-```
-{
-    error: {
-         code: 'INVALID_USERNAME' | INVALID_GUID | INVALID_USER_DATA
-    }
-}
 ```
 
-##### 403
-```
+**403**
+```json
 {
-    error: {
-         code: USER_NAME_ALREADY_TAKEN
+    "error": {
+         "code": "USERNAME_ALREADY_TAKEN"
     }
 }
 ```
@@ -126,59 +132,70 @@ POST: `baseURL/user`
 ### Contacts 
 
 #### Route Get contacts
-GET: `baseURL/contacts/{userGuid}`
+`GET: /contacts`
 
-#### Response 
+##### Parameters
+|Type      | Parameter     | value                 |
+|---------:| -------------:|----------------------:|
+|Head      | Authorization | `Bearer <auth token>` |
 
-##### 200
-```
+##### Response 
+
+**200**
+```json
 [
     {
-        "user": {
-            "userName": "Anna-Karin",
-            "guid": "s4f754sd2fsfajfdsda54",
-            "id": "-L2WrCY1G-N89gRxxXek"
-        }
+        "username": "contactname",
+        "guid": "s4f754sd2fsfajfdsda54",
+        "id": "-L2WrCY1G-N89gRxxXek",
+        "email": "contact@email.com"
     },
     {
-        "user": {
-            "userName": "Anton",
-            "guid": "4dfgdfgdfgfdg845453d",
-            "id": "-L2lk7TNfL3WzGuyoyM1"
-        }
-    },
+        "username": "contactname2",
+        "guid": "4dfgdfgdfgfdg845453d",
+        "id": "-L2lk7TNfL3WzGuyoyM1",
+        "email": "contact2@email.com"            
+    }
     ...
 ]
 ```
 
 #### Route Add contact to user
-POST: `baseURL/user/{userGuid}/contacts/contactGuid`
+`POST: /contacts`
 
-#### Response
-##### 200 
-```
+This functionality should be changed so that the added contact must accept the adder. 
+
+##### Parameters
+|Type        | Parameter     | value                       |
+|:-----------|:--------------|:----------------------------|
+|Head        | Authorization | `Bearer <auth token>`       |
+|json        | contactGuid   | `dsfhiuhsdf46574dfs7486sd4` |
+
+##### Response
+**200**
+```json
 {
     "contactList": [
         "dfks4sdfsdf854fdsfsd",
         "dsf4dsfg7sdr48g6vdg7fd6",
         "sd45gfd6f4ds68f54ds6f8s4",
-        "s54d1fds4fds65f4sd6d531fcd"  // <-- New contact
+        "dsfhiuhsdf46574dfs7486sd4"  // <-- New contact
     ]
 }
 ```
 
 ##### 400
-```
-error {
-    code: ALREADY_A_CONTACT
+```json
+"error" {
+    "code": ALREADY_A_CONTACT
 }
 ```
 
 ##### 404 
-```
+```json
 {
-    error: {
-         code: USER_DOES_NOT_EXISTS | CONTACT_DOES_NOT_EXISTS
+    "error": {
+         "code": USER_DOES_NOT_EXISTS | CONTACT_DOES_NOT_EXISTS
     }
 }
 ```
@@ -186,64 +203,56 @@ error {
 
 ### Memory
 
-#### Route - Get memory data
-GET: `baseURL/memory/{memoryGuid}?senderGuid=...`
+#### Route - Get memories sent by user.
+
+`GET: /memories/sent`
 
 ##### Parameters
-| Parameter   | value                     | format            |
-| ----------- |:-------------------------:| -----------------:|
-| memoryGuid  | the guid for the memory   | A URL-param       |
-| senderGuid  | list if memory-ids to get | A url query param |
+|Type        | Parameter     | value                       |
+|:-----------|:--------------|:----------------------------|
+|Head        | Authorization | `Bearer <auth token>`       |
+|json        | contactGuid   | `dsfhiuhsdf46574dfs7486sd4` |
 
-#### Response
+##### Response
 
-##### 200
-```
-{
-    "memory": {
-        "guid": "memory-1516738683172109",
-        "filePath": "public\\images\\memory-1516738683172109.png",
-        "message": "Hej här sitter vi vid matbordet och chillar!",
+**200**
+```json 
+[
+    {
+        "guid": "memory-1519512694957445",
+        "filePath": "public\\images\\memory-1519512694957445.jpg",
+        "message": "Hello, and look att this!",
         "recipients": [
-            "dfhksdfhsidfyh54sdf4ds45",
-            "sdffsdf54568ds7f4fd"
+            "1tb642H6453nD57R16by83Q5au6mw6E15",
+            "5784ddff42H6453gdgweygtas7gh8dfsE"
         ],
-        "sender": "sdkfjjsfuhfsfd4583487fdfsz",
-        "senderName": "Kristoffer"
+        "sender": "Ceu0I78uW0RC52B5UtuiKe4K6vF5LNqt6"
+    },
+    {
+        "guid": "memory-1519513401034576",
+        "filePath": "public\\images\\memory-1519513401034576.jpg",
+        "message": "Wat about a grasshopper for dinner?",
+        "recipients": [
+            "1tb642H6453nD57R16by83Q5au6mw6E15"
+        ],
+        "sender": "Ceu0I78uW0RC52B5UtuiKe4K6vF5LNqt6"
     }
-}
-``` 
-
-##### 400
+]
 ```
-{
-    error: {
-        code: INVALID_IMAGE
-    }
-}
-```
-
-##### 403
-```
-{
-    error: {
-        code: NOT_ALLOWED_TO_GET_MEMORY 
-    }
-}
-```
-
 
 #### Route - Get memory image
-GET: `baseURL/image/?filePath=....`
+`GET: /image/?filePath=....`
 
 ##### Parameters
-| Parameter   | value                     | format            |
-| ----------- |:-------------------------:| -----------------:|
-| filePath    | Path to the file on disk  | A URL query param |
+|Type                | Parameter     | value                                           |
+|:-------------------|:--------------|:------------------------------------------------|
+|Head                | Authorization | `Bearer <auth token>`                           |
+|GET (query param)   | filePath      | `"public\\images\\memory-1519512694957445.jpg"` |
 
-#### Response
 
-##### 200
+##### Response
+
+**200**
 ```
 image
 ``` 
@@ -251,8 +260,8 @@ image
 ##### 400
 ```
 {
-    error: {
-        code: INVALID_IMAGE
+    "error": {
+        "code": "INVALID_IMAGE" // The requested file does not exist or can not be accessed
     }
 }
 ```
@@ -311,13 +320,6 @@ Successfully deleted memory
     }
 }
 ```
-
-
-
-## Tests
-
-Use `mocha --recursive` to run all tests
-
 
 
 

@@ -2,12 +2,13 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../../private/authConfig');
 const errors = require('../constants/errorCodes');
 
-const getTokenForUser = (userGuid) => {
-  if (!userGuid) {
-    throw 'No userGuid given when creating jwt'
+const getTokenForUser = (userGuid, clientId) => {
+  if (!userGuid || !clientId) {
+    throw 'No userGuid or clientId given when creating jwt'
   };
   return jwt.sign({
-    guid: userGuid
+    guid: userGuid,
+    clientId: clientId
   }, authConfig.key, {
     expiresIn: authConfig.expiresAfter
   });

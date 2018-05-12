@@ -9,6 +9,7 @@ module.exports = (app, multerFileUpload) => {
   });
 
   // + ?clientGuid=....
+  /** @deprecated a new route is to be added */
   app.get('/memory/:memoryGuid', async(request, response) => {
     const getMemoryController = require('../controllers/memories/getMemoriesController');
     request.params.clientGuid = request.query.clientGuid

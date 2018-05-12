@@ -25,7 +25,7 @@ const invoke = async(loginData) => {
       return controllerHelper.errorResponse(errors.errorStatuses[error], errors.errorCodes[error]);
     } else throw error;
   }
-  const jwt = await authHelper.getTokenForUser(user.getGuid());
+  const jwt = await authHelper.getTokenForUser(user.getGuid(), clientId);
   return controllerHelper.successResponse(200, {token: jwt});
 
 }
