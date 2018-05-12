@@ -10,12 +10,11 @@ const memoryPersister = require('../../model/persisters/memoryPersister');
 const invoke = async (bodyData, fileData) => {
   console.log('Remember to implement a Ping-function');
   console.log('Remember to check that recipients has client-info');
-  //console.log(bodyData);
-  if(!bodyData.sender || !bodyData.recipients) {
+  if(!bodyData.guid || !bodyData.recipients) {
     return controllerHelper.errorResponse(errors.errorStatuses.MISSING_PARAMETER, errors.errorCodes.MISSING_PARAMETER);    
   }
   const recipientsGuids = bodyData.recipients.replace(/\s/g, "").split(',');
-  const [sender, senderContacts, recipients] = await getUsers(bodyData.sender, recipientsGuids);
+  const [sender, senderContacts, recipients] = await getUsers(bodyData.guid, recipientsGuids);
   sender.setContacts(senderContacts);
   data = getFormatedData(bodyData, fileData, sender, recipientsGuids);
 

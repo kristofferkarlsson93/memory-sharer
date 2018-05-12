@@ -11,12 +11,13 @@ class ContactList extends React.Component {
       <View style={styles.container}>
         <FlatList
           data={this.props.contacts}
-          keyExtractor={(item, index) => index}
+          extraData={this.props.pickedContacts}
+          keyExtractor={(item, index) => item.guid}
           renderItem={({item}, index) => (
             <ContactSummary
               avatar={<Icon size={28} name={'person'} />}
               username={item.username}
-              selected={this.props.pickedContacts && this.props.pickedContacts.contains(item.guid) ? true : false }
+              selected={ this.props.pickedContacts.indexOf(item.guid) > -1 }
               pickedColor={colors.primaryColor}
               onPress={() => this.props.onContactPicked(item)}
             />

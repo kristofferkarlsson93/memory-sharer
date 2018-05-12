@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableHighlight} from 'react-nat
 class ContactList extends React.Component {
 
   render() {
+    console.log('jsjsjs', this.props.selected)
     return (
       <TouchableHighlight onPress={() => this.props.onPress()} >
         <View style={[styles.container, {backgroundColor: this.props.selected ? this.props.pickedColor : '#fff'}]}>
@@ -22,7 +23,6 @@ class ContactList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'row',

@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       case postMemory.CONTACT_REMOVED: 
         return {
           ...state,
-          contactGuid: state.contactGuids.filter(guid => guid !== action.guid)
+          contactGuids: state.contactGuids.filter(guid => guid !== action.contactGuid)
         }
       default:
       return state;

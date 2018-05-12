@@ -289,9 +289,9 @@ POST: `baseURL/memory`
 |Type                | Parameter     | value                   |
 |:-------------------|:--------------|:------------------------|
 |Head                | Authorization | `Bearer <auth token>`   |
-|json                | memory        | `Image (.png or .jpeg`  |
-|json                | recipients    | `[<guid>, <guid>,...]`  |
-|json                | message       | `"Hello there!"`        |    
+|Post                | memory        | `Image (.png or .jpeg`  |
+|Post                | recipients    | `[<guid>, <guid>,...]`  |
+|Post                | message       | `"Hello there!"`        |    
 
 
 ##### Response

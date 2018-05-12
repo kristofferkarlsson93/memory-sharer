@@ -6,7 +6,7 @@ export const contactPicked = (contactGuid) => {
    const earlierAddedContacts = postMemory.contactGuids;
 
   if (earlierAddedContacts.includes(contactGuid)) {
-    console.log('remove');
+    console.log('remove', contactGuid);
     dispatch(remove(contactGuid));
   } else {
     dispatch(add(contactGuid));

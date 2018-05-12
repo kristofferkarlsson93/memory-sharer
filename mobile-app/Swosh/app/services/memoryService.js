@@ -16,3 +16,20 @@ export const getAllMemories = async(token) => {
   const json = await response.json();
   return json;
 }
+
+export const postMemoryToServer = (memory) => {
+  const data = new FormData();
+  data.append('recipients', memory.recipients);
+  data.append('message', memory.message);
+  data.append('memory', {
+    uri: memory.image,
+    type: 'image/jpeg',
+  });
+  fetch(config.baseUrl, {
+    method: 'post',
+    body: data
+  }).then(res => {
+    console.log(res)
+  });
+
+}
