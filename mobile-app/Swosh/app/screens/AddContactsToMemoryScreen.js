@@ -9,8 +9,17 @@ import { sendMemory } from '../actions';
 
 class AddContactsToMemoryScreen extends React.Component {
 
+  state = {
+    buttonColor: colors.primaryColor
+  }
+
   render() {
-    console.log('selected c', this.props.selectedContacts);
+    /*if (this.props.error && this.state.buttonColor !== colors.error) {
+      console.log('error', this.state.buttonColor);
+      this.setState((prev, props) => ({buttonColor: colors.error}));
+    } else if (this.props.error && this.state.buttonColor === colors.error) {
+      setTimeout(() => this.setState({buttonColor: colors.primaryColor}),1500);
+    }*/
     return (
       <View style={styles.container}>
         <View style={styles.contactContainer}>
@@ -23,7 +32,7 @@ class AddContactsToMemoryScreen extends React.Component {
         <View style={styles.continueContainer}>
         <RoundedButton 
             size={100}
-            backgroundColor={colors.primaryColor}
+            backgroundColor={this.state.buttonColor}
             icon={'arrow-forward'}
             onPress={() => this.props.postMemory()}
           />
@@ -31,6 +40,10 @@ class AddContactsToMemoryScreen extends React.Component {
         </View>
       </View>
     );
+  }
+
+  buttonIsInErrorState() {
+
   }
 }
 
@@ -55,7 +68,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     contacts: state.contacts.contacts,
-    selectedContacts: state.postMemory.contactGuids
+    selectedContacts: state.postMemory.contactGuids,
+    error: state.postMemory.error,
+    errorType: state.postMemory.errorType
   }
 }
 

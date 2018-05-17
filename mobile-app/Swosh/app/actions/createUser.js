@@ -1,7 +1,7 @@
 import { createUserActions } from './actionTypes';
 import { addUserToServer } from '../services/userService';
 import { encryptString } from '../utils/passwordCryptator';
-import knownErrors from '../constants/knownResponseErrors';
+import knownErrors from '../constants/knownErrors';
 import { storeUser } from '../localStore/persister';
 
 

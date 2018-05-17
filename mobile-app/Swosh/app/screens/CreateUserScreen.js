@@ -6,7 +6,7 @@ import colors from '../constants/colors';
 import { FormLabel, FormInput } from 'react-native-elements'
 import { createUser } from '../actions'
 import Button from 'apsl-react-native-button'
-import knownErrors from '../constants/knownResponseErrors';
+import knownErrors from '../constants/knownErrors';
 import { CheckBox } from 'react-native-elements'
 import LoadingScreen from './LoadingScreen';
 import Toast, {DURATION} from 'react-native-easy-toast'

@@ -1,5 +1,6 @@
 import config from '../config/config';
 import { isKnownError } from '../utils/errorUtils';
+import getRandomString from '../utils/randomString';
 
 export const getAllMemories = async(token) => {
   if (!token) {
@@ -17,19 +18,25 @@ export const getAllMemories = async(token) => {
   return json;
 }
 
-export const postMemoryToServer = (memory) => {
+export const postMemoryToServer = (memory, token) => {
+  
+  const url = config.baseUrl + '/memory';
   const data = new FormData();
+  console.log('memory', memory);
   data.append('recipients', memory.recipients);
   data.append('message', memory.message);
   data.append('memory', {
     uri: memory.image,
     type: 'image/jpeg',
+    name: getRandomString(config.fileNameLength)
   });
-  fetch(config.baseUrl, {
-    method: 'post',
-    body: data
-  }).then(res => {
-    console.log(res)
-  });
+  fetch(url, {
+    method: 'POST',
+    body: data,
+    headers: {
+      "content-type": "multipart/form-data",
+      'Authorization': 'Bearer ' + token,
+    }
+  }).then(res => res.json()).then(json => console.log(json));
 
 }
